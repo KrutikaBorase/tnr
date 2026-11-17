@@ -1,0 +1,7 @@
+accelerate>=1.6
+numpy>=2.0
+peft>=0.15
+psutil>=6.0
+reportlab>=4.2
+requests>=2.32
+transformers>=4.51

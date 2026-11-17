@@ -1,0 +1,142 @@
+[
+  {
+    "message": "I forgot my password and cannot access the tracking page for my package.",
+    "expected": "account_access",
+    "output": "{\"intent\":\"account_access\"}",
+    "prediction": "account_access",
+    "correct": true
+  },
+  {
+    "message": "The shipment still has not arrived; please credit the delivery fee.",
+    "expected": "order_status",
+    "output": "{\"intent\":\"billing\"}",
+    "prediction": "billing",
+    "correct": false
+  },
+  {
+    "message": "The tracking screen crashes every time I open it in the mobile app.",
+    "expected": "technical_support",
+    "output": "{\"intent\":\"technical_support\"}",
+    "prediction": "technical_support",
+    "correct": true
+  },
+  {
+    "message": "I need an invoice for the order that is still marked as unshipped.",
+    "expected": "billing",
+    "output": "{\"intent\":\"billing\"}",
+    "prediction": "billing",
+    "correct": true
+  },
+  {
+    "message": "My profile is locked, and I need to change the card saved for my plan.",
+    "expected": "account_access",
+    "output": "{\"intent\":\"account_access\"}",
+    "prediction": "account_access",
+    "correct": true
+  },
+  {
+    "message": "The app cannot load my invoice after the latest release.",
+    "expected": "technical_support",
+    "output": "{\"intent\":\"billing\"}",
+    "prediction": "billing",
+    "correct": false
+  },
+  {
+    "message": "My payment went through, but where is the parcel now?",
+    "expected": "order_status",
+    "output": "{\"intent\":\"order_status\"}",
+    "prediction": "order_status",
+    "correct": true
+  },
+  {
+    "message": "I cannot sign in to download the receipt for last month's renewal.",
+    "expected": "account_access",
+    "output": "{\"intent\":\"account_access\"}",
+    "prediction": "account_access",
+    "correct": true
+  },
+  {
+    "message": "The delivery charge on my statement looks incorrect.",
+    "expected": "billing",
+    "output": "{\"intent\":\"billing\"}",
+    "prediction": "billing",
+    "correct": true
+  },
+  {
+    "message": "The website shows an error when I try to follow my shipment.",
+    "expected": "technical_support",
+    "output": "{\"intent\":\"technical_support\"}",
+    "prediction": "technical_support",
+    "correct": true
+  },
+  {
+    "message": "I was charged for an order that is still waiting to be dispatched.",
+    "expected": "order_status",
+    "output": "{\"intent\":\"billing\"}",
+    "prediction": "billing",
+    "correct": false
+  },
+  {
+    "message": "Can I get a refund for the second charge on my membership?",
+    "expected": "billing",
+    "output": "{\"intent\":\"billing\"}",
+    "prediction": "billing",
+    "correct": true
+  },
+  {
+    "message": "My password reset code arrives, but the account page freezes afterward.",
+    "expected": "technical_support",
+    "output": "{\"intent\":\"account_access\"}",
+    "prediction": "account_access",
+    "correct": false
+  },
+  {
+    "message": "I lost access to the email used for my order account.",
+    "expected": "account_access",
+    "output": "{\"intent\":\"order_status\"}",
+    "prediction": "order_status",
+    "correct": false
+  },
+  {
+    "message": "The parcel is late and I want to know whether it has shipped.",
+    "expected": "order_status",
+    "output": "{\"intent\":\"order_status\"}",
+    "prediction": "order_status",
+    "correct": true
+  },
+  {
+    "message": "I need help with the invoice because the billing page will not open.",
+    "expected": "technical_support",
+    "output": "{\"intent\":\"billing\"}",
+    "prediction": "billing",
+    "correct": false
+  },
+  {
+    "message": "My subscription renewed, but I did not authorize that payment.",
+    "expected": "billing",
+    "output": "{\"intent\":\"billing\"}",
+    "prediction": "billing",
+    "correct": true
+  },
+  {
+    "message": "I cannot log in to update the delivery address on my order.",
+    "expected": "account_access",
+    "output": "{\"intent\":\"account_access\"}",
+    "prediction": "account_access",
+    "correct": true
+  },
+  {
+    "message": "The courier says delivered, but I need the shipment location checked.",
+    "expected": "order_status",
+    "output": "{\"intent\":\"order_status\"}",
+    "prediction": "order_status",
+    "correct": true
+  },
+  {
+    "message": "An error appears when I submit the payment details for my purchase.",
+    "expected": "technical_support",
+    "output": "{\"intent\":\"technical_support\"}",
+    "prediction": "technical_support",
+    "correct": true
+  }
+]

@@ -1,0 +1,81 @@
+message,expected,base_output,base_prediction,tuned_output,tuned_prediction
+There is a duplicate debit on my statement.,billing,"{""intent"": ""account_access""}",account_access,"{""intent"":""billing""}",billing
+I need an itemized copy of last month's bill.,billing,"{""intent"": ""billing""}",billing,"{""intent"":""billing""}",billing
+Please explain why my renewal cost went up.,billing,"{""intent"": ""account_access""}",account_access,"{""intent"":""billing""}",billing
+The card on file was billed after I cancelled.,billing,"{""intent"": ""billing""}",billing,"{""intent"":""billing""}",billing
+Can someone reverse the fee I was charged yesterday?,billing,"{""intent"": ""account_access""}",account_access,"{""intent"":""billing""}",billing
+My account was charged in euros instead of dollars.,billing,"{""intent"": ""account_access""}",account_access,"{""intent"":""billing""}",billing
+I want to update the payment details for my membership.,billing,"{""intent"": ""account_access""}",account_access,"{""intent"":""billing""}",billing
+The invoice total does not match the advertised price.,billing,"{""intent"": ""billing""}",billing,"{""intent"":""billing""}",billing
+I have not received the credit you promised.,billing,"{""intent"": ""account_access""}",account_access,"{""intent"":""billing""}",billing
+Where do I download a tax invoice?,billing,"{""intent"": ""account_access""}",account_access,"{""intent"":""billing""}",billing
+A subscription payment failed; how can I pay it?,billing,"{""intent"": ""account_access""}",account_access,"{""intent"":""billing""}",billing
+I was billed for a service I never ordered.,billing,"{""intent"": ""billing""}",billing,"{""intent"":""billing""}",billing
+Can I get a receipt for the transaction on Tuesday?,billing,"{""intent"": ""account_access""}",account_access,"{""intent"":""billing""}",billing
+Please remove the extra service fee from my bill.,billing,"{""intent"": ""account_access""}",account_access,"{""intent"":""billing""}",billing
+My bank shows two pending payments for one purchase.,billing,"{""intent"": ""account_access""}",account_access,"{""intent"":""billing""}",billing
+When will the cancellation refund be processed?,billing,"{""intent"": ""account_access""}",account_access,"{""intent"":""billing""}",billing
+I need to change the billing cycle on my plan.,billing,"{""intent"": ""billing""}",billing,"{""intent"":""billing""}",billing
+Why was sales tax added to this order?,billing,"{""intent"": ""account_access""}",account_access,"{""intent"":""billing""}",billing
+The latest invoice was sent to the wrong email.,billing,"{""intent"": ""account_access""}",account_access,"{""intent"":""billing""}",billing
+How can I dispute an unfamiliar transaction?,billing,"{""intent"": ""account_access""}",account_access,"{""intent"":""billing""}",billing
+The sign-in page spins forever in Firefox.,technical_support,"{""intent"": ""account_access""}",account_access,"{""intent"":""technical_support""}",technical_support
+My tablet loses its connection whenever the app launches.,technical_support,"{""intent"": ""account_access""}",account_access,"{""intent"":""technical_support""}",technical_support
+I see a 503 message when I save my profile.,technical_support,"{""intent"": ""account_access""}",account_access,"{""intent"":""technical_support""}",technical_support
+The camera upload gets stuck at ninety percent.,technical_support,"{""intent"": ""account_access""}",account_access,"{""intent"":""technical_support""}",technical_support
+"After the patch, notifications no longer appear.",technical_support,"{""intent"": ""account_access""}",account_access,"{""intent"":""technical_support""}",technical_support
+The desktop program closes whenever I export a report.,technical_support,"{""intent"": ""account_access""}",account_access,"{""intent"":""technical_support""}",technical_support
+My browser cannot load the settings screen.,technical_support,"{""intent"": ""account_access""}",account_access,"{""intent"":""technical_support""}",technical_support
+The device will not pair with my headphones.,technical_support,"{""intent"": ""account_access""}",account_access,"{""intent"":""technical_support""}",technical_support
+Search returns a blank screen in the mobile client.,technical_support,"{""intent"": ""account_access""}",account_access,"{""intent"":""technical_support""}",technical_support
+The latest version made the dashboard very slow.,technical_support,"{""intent"": ""technical_support""}",technical_support,"{""intent"":""technical_support""}",technical_support
+I cannot print from the application anymore.,technical_support,"{""intent"": ""account_access""}",account_access,"{""intent"":""technical_support""}",technical_support
+A network timeout appears when I try to sync.,technical_support,"{""intent"": ""account_access""}",account_access,"{""intent"":""technical_support""}",technical_support
+The app's audio playback is cutting out.,technical_support,"{""intent"": ""technical_support""}",technical_support,"{""intent"":""technical_support""}",technical_support
+How do I fix a frozen screen on my laptop?,technical_support,"{""intent"": ""technical_support}",,"{""intent"":""technical_support""}",technical_support
+The form gives an error when I attach a document.,technical_support,"{""intent"": ""account_access""}",account_access,"{""intent"":""technical_support""}",technical_support
+My router drops the connection every few minutes.,technical_support,"{""intent"": ""technical_support""}",technical_support,"{""intent"":""technical_support""}",technical_support
+The menu disappears when I rotate my phone.,technical_support,"{""intent"": ""account_access""}",account_access,"{""intent"":""technical_support""}",technical_support
+I need help getting the software to install.,technical_support,"{""intent"": ""technical_support""}",technical_support,"{""intent"":""technical_support""}",technical_support
+Exported files are empty even though the preview is full.,technical_support,"{""intent"": ""account_access""}",account_access,"{""intent"":""technical_support""}",technical_support
+The page reloads repeatedly after I press submit.,technical_support,"{""intent"": ""technical_support""}",technical_support,"{""intent"":""technical_support""}",technical_support
+My password manager's saved credentials are rejected.,account_access,"{""intent"": ""account_access""}",account_access,"{""intent"":""account_access""}",account_access
+I can't get past the verification step on my profile.,account_access,"{""intent"": ""account_access""}",account_access,"{""intent"":""account_access""}",account_access
+The reset email is going to an address I no longer use.,account_access,"{""intent"": ""account_access""}",account_access,"{""intent"":""account_access""}",account_access
+I need to recover my username.,account_access,"{""intent"": ""account_access""}",account_access,"{""intent"":""account_access""}",account_access
+The one-time login code arrived after it expired.,account_access,"{""intent"": ""account_access""}",account_access,"{""intent"":""account_access""}",account_access
+My account was temporarily locked; how do I regain access?,account_access,"{""intent"": ""account_access""}",account_access,"{""intent"":""account_access""}",account_access
+I changed phones and lost my authentication app.,account_access,"{""intent"": ""account_access""}",account_access,"{""intent"":""account_access""}",account_access
+Where can I replace the recovery phone number?,account_access,"{""intent"": ""account_access""}",account_access,"{""intent"":""billing""}",billing
+The password reset link says it has already been used.,account_access,"{""intent"": ""account_access""}",account_access,"{""intent"":""account_access""}",account_access
+I am unable to log into the member portal.,account_access,"{""intent"": ""account_access""}",account_access,"{""intent"":""account_access""}",account_access
+Can you change the email I use for authentication?,account_access,"{""intent"": ""account_access""}",account_access,"{""intent"":""account_access""}",account_access
+My account asks for a code sent to my old number.,account_access,"{""intent"": ""account_access""}",account_access,"{""intent"":""account_access""}",account_access
+I forgot my login password.,account_access,"{""intent"": ""account_access""}",account_access,"{""intent"":""account_access""}",account_access
+The system says my user ID does not exist.,account_access,"{""intent"": ""account_access""}",account_access,"{""intent"":""account_access""}",account_access
+I was signed out and cannot authenticate again.,account_access,"{""intent"": ""account_access""}",account_access,"{""intent"":""account_access""}",account_access
+Please unlock my profile after the failed attempts.,account_access,"{""intent"": ""account_access""}",account_access,"{""intent"":""account_access""}",account_access
+I need to set up a new second-factor device.,account_access,"{""intent"": ""account_access""}",account_access,"{""intent"":""account_access""}",account_access
+The confirmation message for account recovery never arrived.,account_access,"{""intent"": ""account_access""}",account_access,"{""intent"":""account_access""}",account_access
+How do I regain access without my former email?,account_access,"{""intent"": ""account_access""}",account_access,"{""intent"":""account_access""}",account_access
+My sign-in credentials stopped working this morning.,account_access,"{""intent"": ""account_access""}",account_access,"{""intent"":""account_access""}",account_access
+The parcel tracking number has not updated since Monday.,order_status,"{""intent"": ""account_access""}",account_access,"{""intent"":""order_status""}",order_status
+Could you tell me the delivery window for my purchase?,order_status,"{""intent"": ""account_access""}",account_access,"{""intent"":""order_status""}",order_status
+My shipment is marked dispatched but has not arrived.,order_status,"{""intent"": ""order_status""}",order_status,"{""intent"":""order_status""}",order_status
+I need the current location of package Z-515.,order_status,"{""intent"": ""account_access""}",account_access,"{""intent"":""location""}",
+Has the warehouse handed my order to the carrier?,order_status,"{""intent"": ""account_access""}",account_access,"{""intent"":""order_status""}",order_status
+The estimated arrival date disappeared from tracking.,order_status,"{""intent"": ""account_access""}",account_access,"{""intent"":""order_status""}",order_status
+Please check whether my order is out for delivery.,order_status,"{""intent"": ""order_status""}",order_status,"{""intent"":""order_status""}",order_status
+The courier's page says they have not received the parcel.,order_status,"{""intent"": ""account_access""}",account_access,"{""intent"":""order_status""}",order_status
+When will the replacement item be delivered?,order_status,"{""intent"": ""account_access""}",account_access,"{""intent"":""order_status""}",order_status
+My package seems delayed; can you look up its status?,order_status,"{""intent"": ""order_status""}",order_status,"{""intent"":""order_status""}",order_status
+I am waiting for order R-880 to ship.,order_status,"{""intent"": ""order_status""}",order_status,"{""intent"":""order_status""}",order_status
+Can I get a tracking update for the headphones I bought?,order_status,"{""intent"": ""account_access""}",account_access,"{""intent"":""order_status""}",order_status
+The delivery has been in transit for a week.,order_status,"{""intent"": ""order_status""}",order_status,"{""intent"":""order_status""}",order_status
+Is my purchase still expected to arrive tomorrow?,order_status,"{""intent"": ""order_status""}",order_status,"{""intent"":""order_status""}",order_status
+I need to know if the carrier attempted delivery.,order_status,"{""intent"": ""billing""}",billing,"{""intent"":""order_status""}",order_status
+Where can I see the latest progress on my shipment?,order_status,"{""intent"": ""account_access""}",account_access,"{""intent"":""order_status""}",order_status
+The tracking link says the package is still at the depot.,order_status,"{""intent"": ""account_access""}",account_access,"{""intent"":""order_status""}",order_status
+Please confirm the expected arrival of parcel P-942.,order_status,"{""intent"": ""account_access""}",account_access,"{""intent"":""order_status""}",order_status
+My order is packed; has it been sent yet?,order_status,"{""intent"": ""order_status""}",order_status,"{""intent"":""order_status""}",order_status
+Can you find the courier status for my recent purchase?,order_status,"{""intent"": ""order_status""}",order_status,"{""intent"":""order_status""}",order_status

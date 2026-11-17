@@ -1,0 +1,41 @@
+{
+  "model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "torch_version": "2.11.0+cu128",
+  "transformers_version": "5.23.0",
+  "peft_version": "0.21.3",
+  "seed": 20261117,
+  "device": "cuda",
+  "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "lora": {
+    "rank": 8,
+    "alpha": 16,
+    "target_modules": [
+      "q_proj",
+      "v_proj"
+    ],
+    "dropout": 0.05,
+    "learning_rate": 0.0002,
+    "epochs": 3,
+    "batch_size": 4,
+    "gradient_accumulation_steps": 2,
+    "optimizer_steps": 90,
+    "train_examples": 240
+  },
+  "test_examples": 80,
+  "training_seconds": 20.058153000019956,
+  "peak_cuda_allocated_gib": 1.8156747817993164,
+  "base": {
+    "accuracy": 0.475,
+    "valid_json_rate": 0.9875,
+    "schema_valid_rate": 0.9875,
+    "correct": 38,
+    "examples": 80
+  },
+  "lora_finetuned": {
+    "accuracy": 0.975,
+    "valid_json_rate": 1.0,
+    "schema_valid_rate": 0.9875,
+    "correct": 78,
+    "examples": 80
+  }
+}
