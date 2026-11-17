@@ -1,0 +1,200 @@
+{
+  "model_family": "Qwen2.5-1.5B-Instruct",
+  "accelerator": "CPU (llama.cpp reported no available devices)",
+  "llama_cpp_devices": [],
+  "host_cpu": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+  "host_gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "measurement_method": "Local llama.cpp OpenAI-compatible server; wall generation throughput is completion token count divided by sequential client request time. One warm-up is excluded. Peak process RSS is sampled from the server process; GPU VRAM is not included when llama.cpp uses CPU.",
+  "results": {
+    "Q4_K_M": {
+      "quantization": "Q4_K_M",
+      "model_file": "qwen2.5-1.5b-instruct-q4_k_m.gguf",
+      "llama_cpp_version": "b12477",
+      "gpu_layers": 0,
+      "context_size": 4096,
+      "prompt_count": 10,
+      "warmup_prompts_excluded": 1,
+      "completion_tokens_total": 750,
+      "wall_time_seconds_total": 32.60302639991278,
+      "tokens_per_second": 23.003999407920194,
+      "peak_process_rss_mib": 1757.55078125,
+      "outputs": [
+        {
+          "id": "p01",
+          "prompt": "Explain HTTP idempotence in plain language and give one example.",
+          "output": "HTTP idempotence is a property of certain HTTP methods that allows them to be used multiple times without causing unintended side effects. In plain language, it means that a request to perform an action should have the same effect whether it's done once or multiple times.\n\nTo illustrate this concept, let's consider the `POST` method, which is used to create a new resource. If a `POST` request is idempotent, then if the server receives the same `POST` request multiple times, it should always create the same resource. For example, if you're creating a blog post, a `POST` request to create a new",
+          "completion_tokens": 128,
+          "elapsed_seconds": 5.438421999977436,
+          "wall_tokens_per_second": 23.536239004720684
+        },
+        {
+          "id": "p02",
+          "prompt": "A customer says: 'I was charged twice for one order.' Return exactly one JSON object with keys intent and next_step. Use intent billing.",
+          "output": "```json\n{\n  \"intent\": \"billing\",\n  \"next_step\": \"Check order details and contact customer service\"\n}\n```",
+          "completion_tokens": 28,
+          "elapsed_seconds": 1.2706420999602415,
+          "wall_tokens_per_second": 22.03610284979234
+        },
+        {
+          "id": "p03",
+          "prompt": "Summarize why a reverse proxy might be placed in front of an application server in two concise bullet points.",
+          "output": "- To improve performance by reducing the load on the application server.\n- To enhance security by controlling access and hiding the internal IP address of the application server.",
+          "completion_tokens": 32,
+          "elapsed_seconds": 1.3797327000065707,
+          "wall_tokens_per_second": 23.192898160526028
+        },
+        {
+          "id": "p04",
+          "prompt": "A service receives a 503 response with Retry-After: 120. What should a client do?",
+          "output": "When a client receives a 503 Service Unavailable response with the `Retry-After` header set to 120, it indicates that the service is temporarily unavailable and the client should wait for the specified time before retrying the request. Here are the steps the client should follow:\n\n1. **Wait for the specified time**: The client should wait for the duration specified by the `Retry-After` header (120 seconds in this case). This allows the service to recover and become available again.\n\n2. **Retry the request**: After the specified time has passed, the client should retry the request to the same",
+          "completion_tokens": 128,
+          "elapsed_seconds": 5.435170499957167,
+          "wall_tokens_per_second": 23.550319166806034
+        },
+        {
+          "id": "p05",
+          "prompt": "A box has 24 items. If one quarter are removed and then 3 are added, how many items remain? Show the arithmetic.",
+          "output": "To determine how many items remain in the box after removing one quarter and then adding three items, we can follow these steps:\n\n1. **Calculate the number of items removed:**\n   The box initially has 24 items. One quarter of these items are removed. To find one quarter, we divide 24 by 4:\n   \\[\n   \\frac{24}{4} = 6\n   \\]\n   So, 6 items are removed.\n\n2. **Calculate the number of items remaining after removal:**\n   Subtract the number of items removed from the initial number of items:\n   \\[",
+          "completion_tokens": 128,
+          "elapsed_seconds": 5.7669564000098035,
+          "wall_tokens_per_second": 22.195416632555503
+        },
+        {
+          "id": "p06",
+          "prompt": "Write a polite two-sentence email asking a colleague to review a pull request by Friday.",
+          "output": "Subject: Request for Review of Pull Request\n\nDear [Colleague's Name],\n\nI hope this email finds you well. I am reaching out to request your review of the pull request [PR Number] by Friday. Your insights would be greatly appreciated.\n\nThank you for your time and assistance.\n\nBest regards,  \n[Your Name]",
+          "completion_tokens": 67,
+          "elapsed_seconds": 2.9084731000475585,
+          "wall_tokens_per_second": 23.0361422283412
+        },
+        {
+          "id": "p07",
+          "prompt": "Write a Python function that returns the first repeated integer in a list, or None if there is no repeated integer.",
+          "output": "Certainly! Below is a Python function that takes a list of integers as input and returns the first repeated integer in the list, or `None` if there is no repeated integer.\n\n```python\ndef first_repeated_integer(numbers):\n    seen = set()\n    for num in numbers:\n        if num in seen:\n            return num\n        seen.add(num)\n    return None\n\n# Example usage:\nnumbers = [2, 5, 1, 2, 3, 5, 1, 2, 4]\nprint(first_repeated_integer(numbers))  # Output: 1\n```\n\n### Explanation:",
+          "completion_tokens": 128,
+          "elapsed_seconds": 5.518978599982802,
+          "wall_tokens_per_second": 23.192697286486826
+        },
+        {
+          "id": "p08",
+          "prompt": "Give a three-step checklist for debugging a web page that loads slowly. Keep each step under 12 words.",
+          "output": "1. Check network speed and server response times.\n2. Analyze JavaScript and CSS loading times.\n3. Inspect for any caching issues or duplicate content.",
+          "completion_tokens": 33,
+          "elapsed_seconds": 1.4413380000041798,
+          "wall_tokens_per_second": 22.895393030575967
+        },
+        {
+          "id": "p09",
+          "prompt": "What is a KV cache in a transformer language model, and why is it useful during generation?",
+          "output": "In the context of transformer language models, a KV cache is a type of memory that stores key-value pairs. This is useful during generation because it allows the model to quickly retrieve information that is frequently used in the generation process. This can improve the speed and efficiency of the model's generation process, as it can avoid the need to recompute the same information multiple times.",
+          "completion_tokens": 75,
+          "elapsed_seconds": 3.209144899970852,
+          "wall_tokens_per_second": 23.37071161874966
+        },
+        {
+          "id": "p10",
+          "prompt": "Classify 'I cannot reset my password because the recovery email is old' as billing, technical_support, account_access, or order_status. Return only the category.",
+          "output": "technical_support",
+          "completion_tokens": 3,
+          "elapsed_seconds": 0.23416809999616817,
+          "wall_tokens_per_second": 12.811309482585761
+        }
+      ]
+    },
+    "Q8_0": {
+      "quantization": "Q8_0",
+      "model_file": "qwen2.5-1.5b-instruct-q8_0.gguf",
+      "llama_cpp_version": "b12477",
+      "gpu_layers": 0,
+      "context_size": 4096,
+      "prompt_count": 10,
+      "warmup_prompts_excluded": 1,
+      "completion_tokens_total": 800,
+      "wall_time_seconds_total": 56.326304199988954,
+      "tokens_per_second": 14.202955641463102,
+      "peak_process_rss_mib": 1790.83203125,
+      "outputs": [
+        {
+          "id": "p01",
+          "prompt": "Explain HTTP idempotence in plain language and give one example.",
+          "output": "HTTP idempotence is a property of certain HTTP methods that allows them to be called multiple times without causing any unintended side effects. In plain language, it means that if you call a specific HTTP method (like GET, POST, PUT, DELETE) multiple times with the same request parameters, the server should treat each call as if it were the first time it received the request.\n\nTo illustrate this concept, let's consider the DELETE method, which is used to remove resources from a server. If a DELETE request is idempotent, calling it multiple times with the same parameters should have the same effect as calling it once. For example,",
+          "completion_tokens": 128,
+          "elapsed_seconds": 8.869706500030588,
+          "wall_tokens_per_second": 14.431142676430001
+        },
+        {
+          "id": "p02",
+          "prompt": "A customer says: 'I was charged twice for one order.' Return exactly one JSON object with keys intent and next_step. Use intent billing.",
+          "output": "```json\n{\n  \"intent\": \"billing_error\",\n  \"next_step\": \"check_order_details_and_contact_support\"\n}\n```",
+          "completion_tokens": 28,
+          "elapsed_seconds": 2.089146799989976,
+          "wall_tokens_per_second": 13.402600525790886
+        },
+        {
+          "id": "p03",
+          "prompt": "Summarize why a reverse proxy might be placed in front of an application server in two concise bullet points.",
+          "output": "- To improve performance by reducing the load on the application server.\n- To enhance security by controlling access to the application server.",
+          "completion_tokens": 26,
+          "elapsed_seconds": 1.9323134999722242,
+          "wall_tokens_per_second": 13.455373571821411
+        },
+        {
+          "id": "p04",
+          "prompt": "A service receives a 503 response with Retry-After: 120. What should a client do?",
+          "output": "When a client receives a 503 Service Unavailable response with the Retry-After header set to 120 seconds, it should take the following steps:\n\n1. **Wait for the specified time**: The client should wait for the specified time (120 seconds in this case) before retrying the request. This is a standard practice in HTTP/1.1 to avoid overwhelming the server with repeated requests.\n\n2. **Monitor the server's status**: During this waiting period, the client should monitor the server's status to ensure that the issue has been resolved. This might involve checking the server's logs or contacting the",
+          "completion_tokens": 128,
+          "elapsed_seconds": 8.91953980003018,
+          "wall_tokens_per_second": 14.350516155504671
+        },
+        {
+          "id": "p05",
+          "prompt": "A box has 24 items. If one quarter are removed and then 3 are added, how many items remain? Show the arithmetic.",
+          "output": "To determine how many items remain in the box after removing one quarter and then adding three, we can follow these steps:\n\n1. **Calculate the number of items removed:**\n   The box originally has 24 items. One quarter of these items are removed.\n   \\[\n   \\text{Number of items removed} = \\frac{1}{4} \\times 24 = 6\n   \\]\n\n2. **Subtract the number of items removed from the original number:**\n   \\[\n   \\text{Remaining items after removal} = 24 - 6 = 18\n   \\]",
+          "completion_tokens": 128,
+          "elapsed_seconds": 8.906821699987631,
+          "wall_tokens_per_second": 14.371007337014252
+        },
+        {
+          "id": "p06",
+          "prompt": "Write a polite two-sentence email asking a colleague to review a pull request by Friday.",
+          "output": "Subject: Request for Review of Pull Request\n\nDear [Colleague's Name],\n\nI hope this email finds you well. I am reaching out to request your review of the pull request [PR Number] by Friday. Your feedback would be greatly appreciated to ensure the quality and functionality of our project.\n\nThank you in advance for your time and assistance.\n\nBest regards,  \n[Your Name]",
+          "completion_tokens": 78,
+          "elapsed_seconds": 5.508056299993768,
+          "wall_tokens_per_second": 14.161075296214428
+        },
+        {
+          "id": "p07",
+          "prompt": "Write a Python function that returns the first repeated integer in a list, or None if there is no repeated integer.",
+          "output": "Certainly! Below is a Python function that checks if there is a repeated integer in a list and returns the first repeated integer, or `None` if there is no repeated integer.\n\n```python\ndef find_first_repeated(numbers):\n    seen = set()\n    for number in numbers:\n        if number in seen:\n            return number\n        seen.add(number)\n    return None\n\n# Example usage:\nnumbers = [1, 2, 3, 4, 5, 1]\nprint(find_first_repeated(numbers))  # Output: 1\n\nnumbers = [1, 2, 3, 4,",
+          "completion_tokens": 128,
+          "elapsed_seconds": 8.907574200013187,
+          "wall_tokens_per_second": 14.369793293421065
+        },
+        {
+          "id": "p08",
+          "prompt": "Give a three-step checklist for debugging a web page that loads slowly. Keep each step under 12 words.",
+          "output": "1. Check network speed and latency.\n2. Verify server response times.\n3. Inspect JavaScript and CSS loading.",
+          "completion_tokens": 25,
+          "elapsed_seconds": 1.850249300012365,
+          "wall_tokens_per_second": 13.511692721533757
+        },
+        {
+          "id": "p09",
+          "prompt": "What is a KV cache in a transformer language model, and why is it useful during generation?",
+          "output": "In a transformer language model, a KV cache (Key-Value cache) is a mechanism used to improve the efficiency of the model's generation process. The model is trained to generate text based on a sequence of input tokens, but the generation process can be computationally expensive, especially for long sequences or when generating text in real-time.\n\nA KV cache is a data structure that stores the most recently used tokens and their corresponding context information. During the generation process, the model can quickly retrieve the most relevant tokens from the cache, rather than having to recompute them from scratch. This significantly reduces the computational cost of the generation process, especially for",
+          "completion_tokens": 128,
+          "elapsed_seconds": 8.892928799963556,
+          "wall_tokens_per_second": 14.393458317188433
+        },
+        {
+          "id": "p10",
+          "prompt": "Classify 'I cannot reset my password because the recovery email is old' as billing, technical_support, account_access, or order_status. Return only the category.",
+          "output": "technical_support",
+          "completion_tokens": 3,
+          "elapsed_seconds": 0.44996729999547824,
+          "wall_tokens_per_second": 6.667151146383631
+        }
+      ]
+    }
+  }
+}

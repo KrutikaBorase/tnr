@@ -1,0 +1,42 @@
+[
+  {
+    "id": "p01",
+    "prompt": "Explain HTTP idempotence in plain language and give one example."
+  },
+  {
+    "id": "p02",
+    "prompt": "A customer says: 'I was charged twice for one order.' Return exactly one JSON object with keys intent and next_step. Use intent billing."
+  },
+  {
+    "id": "p03",
+    "prompt": "Summarize why a reverse proxy might be placed in front of an application server in two concise bullet points."
+  },
+  {
+    "id": "p04",
+    "prompt": "A service receives a 503 response with Retry-After: 120. What should a client do?"
+  },
+  {
+    "id": "p05",
+    "prompt": "A box has 24 items. If one quarter are removed and then 3 are added, how many items remain? Show the arithmetic."
+  },
+  {
+    "id": "p06",
+    "prompt": "Write a polite two-sentence email asking a colleague to review a pull request by Friday."
+  },
+  {
+    "id": "p07",
+    "prompt": "Write a Python function that returns the first repeated integer in a list, or None if there is no repeated integer."
+  },
+  {
+    "id": "p08",
+    "prompt": "Give a three-step checklist for debugging a web page that loads slowly. Keep each step under 12 words."
+  },
+  {
+    "id": "p09",
+    "prompt": "What is a KV cache in a transformer language model, and why is it useful during generation?"
+  },
+  {
+    "id": "p10",
+    "prompt": "Classify 'I cannot reset my password because the recovery email is old' as billing, technical_support, account_access, or order_status. Return only the category."
+  }
+]
