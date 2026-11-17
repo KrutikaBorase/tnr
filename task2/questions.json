@@ -1,0 +1,92 @@
+[
+  {
+    "id": "q01",
+    "question": "In HTTP, what does the protocol call the thing a request is directed at, and does HTTP restrict what that thing can be?",
+    "gold_section": "3.1",
+    "gold_passage": "The target of an HTTP request is called a \"resource\". HTTP does not limit the nature of a resource; it merely defines an interface that might be used to interact with resources."
+  },
+  {
+    "id": "q02",
+    "question": "How does RFC 9110 define a representation of a resource?",
+    "gold_section": "3.2",
+    "gold_passage": "A \"representation\" is information that is intended to reflect a past, current, or desired state of a given resource, in a format that can be readily communicated via the protocol."
+  },
+  {
+    "id": "q03",
+    "question": "What are URI references used for in HTTP?",
+    "gold_section": "4.1",
+    "gold_passage": "URI references are used to target requests, indicate redirects, and define relationships."
+  },
+  {
+    "id": "q04",
+    "question": "What security protocol must the https URI scheme be capable of establishing for HTTP communication?",
+    "gold_section": "4.2.2",
+    "gold_passage": "The \"https\" URI scheme is hereby defined for minting identifiers within the hierarchical namespace governed by a potential origin server listening for TCP connections on a given port and capable of establishing a TLS ([TLS13]) connection that has been secured for HTTP communication."
+  },
+  {
+    "id": "q05",
+    "question": "What is the purpose of message framing on an HTTP connection?",
+    "gold_section": "6.1",
+    "gold_passage": "Message framing indicates how each message begins and ends, such that each message can be distinguished from other messages or noise on the same connection."
+  },
+  {
+    "id": "q06",
+    "question": "What kind of information can HTTP header fields provide or change?",
+    "gold_section": "6.3",
+    "gold_passage": "Each header field might modify or extend message semantics, describe the sender, define the content, or provide additional context."
+  },
+  {
+    "id": "q07",
+    "question": "How does a client turn a URI reference into the target URI for a request?",
+    "gold_section": "7.1",
+    "gold_passage": "A URI reference is resolved to its absolute form in order to obtain the \"target URI\"."
+  },
+  {
+    "id": "q08",
+    "question": "What does the Content-Type response field tell a recipient?",
+    "gold_section": "8.3",
+    "gold_passage": "The \"Content-Type\" header field indicates the media type of the associated representation: either the representation enclosed in the message content or the selected representation, as determined by the message semantics."
+  },
+  {
+    "id": "q09",
+    "question": "When does the HTTP specification consider a method safe?",
+    "gold_section": "9.2.1",
+    "gold_passage": "Request methods are considered \"safe\" if their defined semantics are essentially read-only; i.e., the client does not request, and does not expect, any state change on the origin server as a result of applying a safe method to a target resource."
+  },
+  {
+    "id": "q10",
+    "question": "What does idempotent mean for repeating an identical HTTP request?",
+    "gold_section": "9.2.2",
+    "gold_passage": "A request method is considered \"idempotent\" if the intended effect on the server of multiple identical requests with that method is the same as the effect for a single such request."
+  },
+  {
+    "id": "q11",
+    "question": "What does the GET method ask the server to do?",
+    "gold_section": "9.3.1",
+    "gold_passage": "The GET method requests transfer of a current selected representation for the target resource."
+  },
+  {
+    "id": "q12",
+    "question": "What does a Location response field identify?",
+    "gold_section": "10.2.2",
+    "gold_passage": "The \"Location\" header field is used in some responses to refer to a specific resource in relation to the response."
+  },
+  {
+    "id": "q13",
+    "question": "How should a client interpret Retry-After on a 503 response?",
+    "gold_section": "10.2.3",
+    "gold_passage": "When sent with a 503 (Service Unavailable) response, Retry-After indicates how long the service is expected to be unavailable to the client."
+  },
+  {
+    "id": "q14",
+    "question": "What forms can the extra information following an HTTP authentication scheme take?",
+    "gold_section": "11.2",
+    "gold_passage": "The authentication scheme is followed by additional information necessary for achieving authentication via that scheme as either a comma-separated list of parameters or a single sequence of characters capable of holding base64-encoded information."
+  },
+  {
+    "id": "q15",
+    "question": "What does the 4xx status-code class indicate, and what should a server generally send with it?",
+    "gold_section": "15.5",
+    "gold_passage": "The 4xx (Client Error) class of status code indicates that the client seems to have erred. Except when responding to a HEAD request, the server SHOULD send a representation containing an explanation of the error situation, and whether it is a temporary or permanent condition."
+  }
+]

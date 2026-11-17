@@ -1,0 +1,1053 @@
+{
+  "corpus": "RFC 9110: HTTP Semantics",
+  "corpus_url": "https://www.rfc-editor.org/rfc/rfc9110.txt",
+  "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+  "numpy_version": "2.4.6",
+  "torch_version": "2.11.0+cu128",
+  "transformers_version": "5.23.0",
+  "device": "cuda",
+  "question_count": 15,
+  "elapsed_seconds": 4.133007500029635,
+  "results": {
+    "120": {
+      "chunk_words": 120,
+      "overlap_words": 40,
+      "chunk_count": 833,
+      "questions": 15,
+      "hits_at_5": 13,
+      "recall_at_5": 0.8666666666666667,
+      "details": [
+        {
+          "id": "q01",
+          "question": "In HTTP, what does the protocol call the thing a request is directed at, and does HTTP restrict what that thing can be?",
+          "gold_section": "3.1",
+          "gold_passage": "The target of an HTTP request is called a \"resource\". HTTP does not limit the nature of a resource; it merely defines an interface that might be used to interact with resources.",
+          "hit_at_5": true,
+          "top5": [
+            {
+              "section": "3.1",
+              "score": 0.7472979426383972,
+              "text": "The target of an HTTP request is called a \"resource\". HTTP does not limit the nature of a resource; it merely defines an interface that might be used to interact with resources. Most resources are identified by a Uniform Resource Identifier (URI), as described in Section 4. One design goal of HTTP is to separate resource identification from request semantics, which is made possible by vesting the request semantics in the request method (Section 9) and a few request- modifying header fields. A resource cannot treat a request in a manner inconsistent with the semantics of the method of the request. For example, though the URI of a resource might imply semantics that are not safe, a client can expect"
+            },
+            {
+              "section": "3.4",
+              "score": 0.6991656422615051,
+              "text": "HTTP is a stateless request/response protocol for exchanging \"messages\" across a connection. The terms \"sender\" and \"recipient\" refer to any implementation that sends or receives a given message, respectively. A client sends requests to a server in the form of a \"request\" message with a method (Section 9) and request target (Section 7.1). The request might also contain header fields (Section 6.3) for request modifiers, client information, and representation metadata, content (Section 6.4) intended for processing in accordance with the method, and trailer fields (Section 6.5) to communicate information collected while sending the content. A server responds to a client's request by sending one or more \"response\" messages, each including a status code (Section 15). The response might also contain"
+            },
+            {
+              "section": "1.3",
+              "score": 0.692481517791748,
+              "text": "HTTP provides a uniform interface for interacting with a resource (Section 3.1) -- regardless of its type, nature, or implementation -- by sending messages that manipulate or transfer representations (Section 3.2). Each message is either a request or a response. A client constructs request messages that communicate its intentions and routes those messages toward an identified origin server. A server listens for requests, parses each message received, interprets the message semantics in relation to the identified target resource, and responds to that request with one or more response messages. The client examines received responses to see if its intentions were carried out, determining what to do next based on the status codes and content received. HTTP semantics include the intentions"
+            },
+            {
+              "section": "3.3",
+              "score": 0.6504528522491455,
+              "text": "HTTP is a client/server protocol that operates over a reliable transport- or session-layer \"connection\". An HTTP \"client\" is a program that establishes a connection to a server for the purpose of sending one or more HTTP requests. An HTTP \"server\" is a program that accepts connections in order to service HTTP requests by sending HTTP responses. The terms client and server refer only to the roles that these programs perform for a particular connection. The same program might act as a client on some connections and a server on others. HTTP is defined as a stateless protocol, meaning that each request message's semantics can be understood in isolation, and that the relationship between connections and messages on them has no"
+            },
+            {
+              "section": "3.7",
+              "score": 0.6408007144927979,
+              "text": "HTTP enables the use of intermediaries to satisfy requests through a chain of connections. There are three common forms of HTTP \"intermediary\": proxy, gateway, and tunnel. In some cases, a single intermediary might act as an origin server, proxy, gateway, or tunnel, switching behavior based on the nature of each request. > > > > UA =========== A =========== B =========== C =========== O < < < < Figure 2 The figure above shows three intermediaries (A, B, and C) between the user agent and origin server. A request or response message that travels the whole chain will pass through four separate connections. Some HTTP communication options might apply only to the connection with the nearest, non-tunnel neighbor, only to"
+            }
+          ]
+        },
+        {
+          "id": "q02",
+          "question": "How does RFC 9110 define a representation of a resource?",
+          "gold_section": "3.2",
+          "gold_passage": "A \"representation\" is information that is intended to reflect a past, current, or desired state of a given resource, in a format that can be readily communicated via the protocol.",
+          "hit_at_5": true,
+          "top5": [
+            {
+              "section": "3.2",
+              "score": 0.6478673219680786,
+              "text": "A \"representation\" is information that is intended to reflect a past, current, or desired state of a given resource, in a format that can be readily communicated via the protocol. A representation consists of a set of representation metadata and a potentially unbounded stream of representation data (Section 8). HTTP allows \"information hiding\" behind its uniform interface by defining communication with respect to a transferable representation of the resource state, rather than transferring the resource itself. This allows the resource identified by a URI to be anything, including temporal functions like \"the current weather in Laguna Beach\", while potentially providing information that represents that resource at the time a message is generated [REST]. The uniform interface is similar to a"
+            },
+            {
+              "section": "6.4.2",
+              "score": 0.5758349299430847,
+              "text": "When a complete or partial representation is transferred as message content, it is often desirable for the sender to supply, or the recipient to determine, an identifier for a resource corresponding to that specific representation. For example, a client making a GET request on a resource for \"the current weather report\" might want an identifier specific to the content returned (e.g., \"weather report for Laguna Beach at 20210720T1711\"). This can be useful for sharing or bookmarking content from resources that are expected to have changing representations over time. For a request message: * If the request has a Content-Location header field, then the sender asserts that the content is a representation of the resource identified by the Content-Location field value."
+            },
+            {
+              "section": "9.3.1",
+              "score": 0.5720992088317871,
+              "text": "HTTP interface for a resource is just as likely to be implemented as a tree of content objects, a programmatic view on various database records, or a gateway to other information systems. Even when the URI mapping mechanism is tied to a file system, an origin server might be configured to execute the files with the request as input and send the output as the representation rather than transfer the files directly. Regardless, only the origin server needs to know how each resource identifier corresponds to an implementation and how that implementation manages to select and send a current representation of the target resource. A client can alter the semantics of GET to be a \"range request\", requesting transfer of"
+            },
+            {
+              "section": "3.2",
+              "score": 0.557595431804657,
+              "text": "state of that thing in our communications. When a representation is hypertext, it can provide both a representation of the resource state and processing instructions that help guide the recipient's future interactions. A target resource might be provided with, or be capable of generating, multiple representations that are each intended to reflect the resource's current state. An algorithm, usually based on content negotiation (Section 12), would be used to select one of those representations as being most applicable to a given request. This \"selected representation\" provides the data and metadata for evaluating conditional requests (Section 13) and constructing the content for 200 (OK), 206 (Partial Content), and 304 (Not Modified) responses to GET (Section 9.3.1)."
+            },
+            {
+              "section": "9.3.1",
+              "score": 0.5544346570968628,
+              "text": "how each resource identifier corresponds to an implementation and how that implementation manages to select and send a current representation of the target resource. A client can alter the semantics of GET to be a \"range request\", requesting transfer of only some part(s) of the selected representation, by sending a Range header field in the request (Section 14.2). Although request message framing is independent of the method used, content received in a GET request has no generally defined semantics, cannot alter the meaning or target of the request, and might lead some implementations to reject the request and close the connection because of its potential as a request smuggling attack (Section 11.2 of [HTTP/1.1]). A client SHOULD NOT generate content"
+            }
+          ]
+        },
+        {
+          "id": "q03",
+          "question": "What are URI references used for in HTTP?",
+          "gold_section": "4.1",
+          "gold_passage": "URI references are used to target requests, indicate redirects, and define relationships.",
+          "hit_at_5": true,
+          "top5": [
+            {
+              "section": "7.1",
+              "score": 0.7000280618667603,
+              "text": "Although HTTP is used in a wide variety of applications, most clients rely on the same resource identification mechanism and configuration techniques as general-purpose Web browsers. Even when communication options are hard-coded in a client's configuration, we can think of their combined effect as a URI reference (Section 4.1). A URI reference is resolved to its absolute form in order to obtain the \"target URI\". The target URI excludes the reference's fragment component, if any, since fragment identifiers are reserved for client-side processing ([URI], Section 3.5). To perform an action on a \"target resource\", the client sends a request message containing enough components of its parsed target URI to enable recipients to identify that same resource. For historical reasons, the"
+            },
+            {
+              "section": "10.1.3",
+              "score": 0.6783655881881714,
+              "text": "URI is relative to the target URI ([URI], Section 5). The Referer header field allows servers to generate back-links to other resources for simple analytics, logging, optimized caching, etc. It also allows obsolete or mistyped links to be found for maintenance. Some servers use the Referer header field as a means of denying links from other sites (so-called \"deep linking\") or restricting cross-site request forgery (CSRF), but not all requests contain it. Example: Referer: http://www.example.org/hypertext/Overview.html If the target URI was obtained from a source that does not have its own URI (e.g., input from the user keyboard, or an entry within the user's bookmarks/favorites), the user agent MUST either exclude the Referer header field or send it with a value"
+            },
+            {
+              "section": "9.3.1",
+              "score": 0.6723384857177734,
+              "text": "a URI for each important resource can benefit from those optimizations while enabling their reuse by other applications, creating a network effect that promotes further expansion of the Web. It is tempting to think of resource identifiers as remote file system pathnames and of representations as being a copy of the contents of such files. In fact, that is how many resources are implemented (see Section 17.3 for related security considerations). However, there are no such limitations in practice. The HTTP interface for a resource is just as likely to be implemented as a tree of content objects, a programmatic view on various database records, or a gateway to other information systems. Even when the URI mapping mechanism is tied"
+            },
+            {
+              "section": "4.1",
+              "score": 0.670570433139801,
+              "text": "URI references are used to target requests, indicate redirects, and define relationships. The definitions of \"URI-reference\", \"absolute-URI\", \"relative-part\", \"authority\", \"port\", \"host\", \"path-abempty\", \"segment\", and \"query\" are adopted from the URI generic syntax. An \"absolute-path\" rule is defined for protocol elements that can contain a non-empty path component. (This rule differs slightly from the path-abempty rule of RFC 3986, which allows for an empty path, and path-absolute rule, which does not allow paths that begin with \"//\".) A \"partial-URI\" rule is defined for protocol elements that can contain a relative URI but not a fragment component. URI-reference = <URI-reference, see [URI], Section 4.1> absolute-URI = <absolute-URI, see [URI], Section 4.3> relative-part = <relative-part, see [URI], Section 4.2> authority = <authority, see"
+            },
+            {
+              "section": "9.3.1",
+              "score": 0.6545830965042114,
+              "text": "HTTP interface for a resource is just as likely to be implemented as a tree of content objects, a programmatic view on various database records, or a gateway to other information systems. Even when the URI mapping mechanism is tied to a file system, an origin server might be configured to execute the files with the request as input and send the output as the representation rather than transfer the files directly. Regardless, only the origin server needs to know how each resource identifier corresponds to an implementation and how that implementation manages to select and send a current representation of the target resource. A client can alter the semantics of GET to be a \"range request\", requesting transfer of"
+            }
+          ]
+        },
+        {
+          "id": "q04",
+          "question": "What security protocol must the https URI scheme be capable of establishing for HTTP communication?",
+          "gold_section": "4.2.2",
+          "gold_passage": "The \"https\" URI scheme is hereby defined for minting identifiers within the hierarchical namespace governed by a potential origin server listening for TCP connections on a given port and capable of establishing a TLS ([TLS13]) connection that has been secured for HTTP communication.",
+          "hit_at_5": true,
+          "top5": [
+            {
+              "section": "4.3.3",
+              "score": 0.717676043510437,
+              "text": "be trusted as definitive. Hence, the HTTP communication might take place over any channel that has been secured, as defined in Section 4.2.2, including protocols that don't use TCP. When an \"https\" URI is used within a context that calls for access to the indicated resource, a client MAY attempt access by resolving the host identifier to an IP address, establishing a TCP connection to that address on the indicated port, securing the connection end-to- end by successfully initiating TLS over TCP with confidentiality and integrity protection, and sending over that connection an HTTP request message containing a request target that matches the client's target URI (Section 7.1). If the server responds to such a request with a non-interim HTTP"
+            },
+            {
+              "section": "17.1",
+              "score": 0.7065108418464661,
+              "text": "requests over more secure transfer protocols. Furthermore, after an IP address is obtained, establishing authority for an \"http\" URI is vulnerable to attacks on Internet Protocol routing. The \"https\" scheme (Section 4.2.2) is intended to prevent (or at least reveal) many of these potential attacks on establishing authority, provided that the negotiated connection is secured and the client properly verifies that the communicating server's identity matches the target URI's authority component (Section 4.3.4). Correctly implementing such verification can be difficult (see [Georgiev]). Authority for a given origin server can be delegated through protocol extensions; for example, [ALTSVC]. Likewise, the set of servers for which a connection is considered authoritative can be changed with a protocol extension like [RFC8336]. Providing a"
+            },
+            {
+              "section": "4.2.2",
+              "score": 0.6759086847305298,
+              "text": "The \"https\" URI scheme is hereby defined for minting identifiers within the hierarchical namespace governed by a potential origin server listening for TCP connections on a given port and capable of establishing a TLS ([TLS13]) connection that has been secured for HTTP communication. In this context, \"secured\" specifically means that the server has been authenticated as acting on behalf of the identified authority and all HTTP communication with that server has confidentiality and integrity protection that is acceptable to both client and server. https-URI = \"https\" \"://\" authority path-abempty [ \"?\" query ] The origin server for an \"https\" URI is identified by the authority component, which includes a host identifier ([URI], Section 3.2.2) and optional port number ([URI], Section"
+            },
+            {
+              "section": "7.3.3",
+              "score": 0.6577007174491882,
+              "text": "the client's target URI. Section 4.3.3 defines how to obtain access to an \"https\" resource by establishing (or reusing) an inbound secured connection to an origin server that is authoritative for the identified origin and then sending it an HTTP request message containing a request target that matches the client's target URI."
+            },
+            {
+              "section": "4.3.3",
+              "score": 0.6484009027481079,
+              "text": "has been secured) because a network attacker might cause connections for one port to be received at some other port. Failing to check the target URI might allow such an attacker to replace a response to one target URI (e.g., \"https://example.com/foo\") with a seemingly authoritative response from the other port (e.g., \"https://example.com:8000/foo\"). Note that the \"https\" scheme does not rely on TCP and the connected port number for associating authority, since both are outside the secured communication and thus cannot be trusted as definitive. Hence, the HTTP communication might take place over any channel that has been secured, as defined in Section 4.2.2, including protocols that don't use TCP. When an \"https\" URI is used within a context that calls"
+            }
+          ]
+        },
+        {
+          "id": "q05",
+          "question": "What is the purpose of message framing on an HTTP connection?",
+          "gold_section": "6.1",
+          "gold_passage": "Message framing indicates how each message begins and ends, such that each message can be distinguished from other messages or noise on the same connection.",
+          "hit_at_5": true,
+          "top5": [
+            {
+              "section": "6.1",
+              "score": 0.7640894055366516,
+              "text": "Message framing indicates how each message begins and ends, such that each message can be distinguished from other messages or noise on the same connection. Each major version of HTTP defines its own framing mechanism. HTTP/0.9 and early deployments of HTTP/1.0 used closure of the underlying connection to end a response. For backwards compatibility, this implicit framing is also allowed in HTTP/1.1. However, implicit framing can fail to distinguish an incomplete response if the connection closes early. For that reason, almost all modern implementations use explicit framing in the form of length- delimited sequences of message data. A message is considered \"complete\" when all of the octets indicated by its framing are available. Note that, when no explicit framing is"
+            },
+            {
+              "section": "3.3",
+              "score": 0.6484562754631042,
+              "text": "a client on some connections and a server on others. HTTP is defined as a stateless protocol, meaning that each request message's semantics can be understood in isolation, and that the relationship between connections and messages on them has no impact on the interpretation of those messages. For example, a CONNECT request (Section 9.3.6) or a request with the Upgrade header field (Section 7.8) can occur at any time, not just in the first message on a connection. Many implementations depend on HTTP's stateless design in order to reuse proxied connections or dynamically load balance requests across multiple servers. As a result, a server MUST NOT assume that two requests on the same connection are from the same user agent"
+            },
+            {
+              "section": "6",
+              "score": 0.6420726776123047,
+              "text": "Each major version of HTTP defines its own syntax for communicating messages. This section defines an abstract data type for HTTP messages based on a generalization of those message characteristics, common structure, and capacity for conveying semantics. This abstraction is used to define requirements on senders and recipients that are independent of the HTTP version, such that a message in one version can be relayed through other versions without changing its meaning. A \"message\" consists of the following: * control data to describe and route the message, * a headers lookup table of name/value pairs for extending that control data and conveying additional information about the sender, message, content, or context, * a potentially unbounded stream of content, and *"
+            },
+            {
+              "section": "6.4",
+              "score": 0.6367216110229492,
+              "text": "HTTP messages often transfer a complete or partial representation as the message \"content\": a stream of octets sent after the header section, as delineated by the message framing. This abstract definition of content reflects the data after it has been extracted from the message framing. For example, an HTTP/1.1 message body (Section 6 of [HTTP/1.1]) might consist of a stream of data encoded with the chunked transfer coding -- a sequence of data chunks, one zero-length chunk, and a trailer section -- whereas the content of that same message includes only the data stream after the transfer coding has been decoded; it does not include the chunk lengths, chunked framing syntax, nor the trailer fields (Section 6.5). | *Note:* Some"
+            },
+            {
+              "section": "6.2",
+              "score": 0.6193885803222656,
+              "text": "Messages start with control data that describe its primary purpose. Request message control data includes a request method (Section 9), request target (Section 7.1), and protocol version (Section 2.5). Response message control data includes a status code (Section 15), optional reason phrase, and protocol version. In HTTP/1.1 ([HTTP/1.1]) and earlier, control data is sent as the first line of a message. In HTTP/2 ([HTTP/2]) and HTTP/3 ([HTTP/3]), control data is sent as pseudo-header fields with a reserved name prefix (e.g., \":authority\"). Every HTTP message has a protocol version. Depending on the version in use, it might be identified within the message explicitly or inferred by the connection over which the message is received. Recipients use that version information to determine"
+            }
+          ]
+        },
+        {
+          "id": "q06",
+          "question": "What kind of information can HTTP header fields provide or change?",
+          "gold_section": "6.3",
+          "gold_passage": "Each header field might modify or extend message semantics, describe the sender, define the content, or provide additional context.",
+          "hit_at_5": false,
+          "top5": [
+            {
+              "section": "10.1",
+              "score": 0.7205009460449219,
+              "text": "The request header fields below provide additional information about the request context, including information about the user, user agent, and resource behind the request."
+            },
+            {
+              "section": "16.3.2",
+              "score": 0.7107104063034058,
+              "text": "see Section 7.6.1). * Whether the field introduces any additional security considerations, such as disclosure of privacy-related data. Request header fields have additional considerations that need to be documented if the default behavior is not appropriate: * If it is appropriate to list the field name in a Vary response header field (e.g., when the request header field is used by an origin server's content selection algorithm; see Section 12.5.5). * If the field is intended to be stored when received in a PUT request (see Section 9.3.4). * If the field ought to be removed when automatically redirecting a request due to security concerns (see Section 15.4)."
+            },
+            {
+              "section": "16.3.2",
+              "score": 0.7099762558937073,
+              "text": "HTTP header and trailer fields are a widely used extension point for the protocol. While they can be used in an ad hoc fashion, fields that are intended for wider use need to be carefully documented to ensure interoperability. In particular, authors of specifications defining new fields are advised to consider and, where appropriate, document the following aspects: * Under what conditions the field can be used; e.g., only in responses or requests, in all messages, only on responses to a particular request method, etc. * Whether the field semantics are further refined by their context, such as their use with certain request methods or status codes. * The scope of applicability for the information conveyed. By default, fields apply"
+            },
+            {
+              "section": "3.1",
+              "score": 0.6994431614875793,
+              "text": "header fields. A resource cannot treat a request in a manner inconsistent with the semantics of the method of the request. For example, though the URI of a resource might imply semantics that are not safe, a client can expect the resource to avoid actions that are unsafe when processing a request with a safe method (see Section 9.2.1). HTTP relies upon the Uniform Resource Identifier (URI) standard [URI] to indicate the target resource (Section 7.1) and relationships between resources."
+            },
+            {
+              "section": "16.3",
+              "score": 0.685861349105835,
+              "text": "HTTP's most widely used extensibility point is the definition of new header and trailer fields. New fields can be defined such that, when they are understood by a recipient, they override or enhance the interpretation of previously defined fields, define preconditions on request evaluation, or refine the meaning of responses. However, defining a field doesn't guarantee its deployment or recognition by recipients. Most fields are designed with the expectation that a recipient can safely ignore (but forward downstream) any field not recognized. In other cases, the sender's ability to understand a given field might be indicated by its prior communication, perhaps in the protocol version or fields that it sent in prior messages, or its use of a specific media"
+            }
+          ]
+        },
+        {
+          "id": "q07",
+          "question": "How does a client turn a URI reference into the target URI for a request?",
+          "gold_section": "7.1",
+          "gold_passage": "A URI reference is resolved to its absolute form in order to obtain the \"target URI\".",
+          "hit_at_5": true,
+          "top5": [
+            {
+              "section": "7.1",
+              "score": 0.7400868535041809,
+              "text": "Although HTTP is used in a wide variety of applications, most clients rely on the same resource identification mechanism and configuration techniques as general-purpose Web browsers. Even when communication options are hard-coded in a client's configuration, we can think of their combined effect as a URI reference (Section 4.1). A URI reference is resolved to its absolute form in order to obtain the \"target URI\". The target URI excludes the reference's fragment component, if any, since fragment identifiers are reserved for client-side processing ([URI], Section 3.5). To perform an action on a \"target resource\", the client sends a request message containing enough components of its parsed target URI to enable recipients to identify that same resource. For historical reasons, the"
+            },
+            {
+              "section": "7.3",
+              "score": 0.7168704867362976,
+              "text": "Once the target URI and its origin are determined, a client decides whether a network request is necessary to accomplish the desired semantics and, if so, where that request is to be directed."
+            },
+            {
+              "section": "10.1.3",
+              "score": 0.6668684482574463,
+              "text": "URI is relative to the target URI ([URI], Section 5). The Referer header field allows servers to generate back-links to other resources for simple analytics, logging, optimized caching, etc. It also allows obsolete or mistyped links to be found for maintenance. Some servers use the Referer header field as a means of denying links from other sites (so-called \"deep linking\") or restricting cross-site request forgery (CSRF), but not all requests contain it. Example: Referer: http://www.example.org/hypertext/Overview.html If the target URI was obtained from a source that does not have its own URI (e.g., input from the user keyboard, or an entry within the user's bookmarks/favorites), the user agent MUST either exclude the Referer header field or send it with a value"
+            },
+            {
+              "section": "7.1",
+              "score": 0.6644526124000549,
+              "text": "This reconstruction is specific to each major protocol version. For example, Section 3.3 of [HTTP/1.1] defines how a server determines the target URI of an HTTP/1.1 request. | *Note:* Previous specifications defined the recomposed target | URI as a distinct concept, the \"effective request URI\"."
+            },
+            {
+              "section": "10.1.3",
+              "score": 0.6592199802398682,
+              "text": "The \"Referer\" [sic] header field allows the user agent to specify a URI reference for the resource from which the target URI was obtained (i.e., the \"referrer\", though the field name is misspelled). A user agent MUST NOT include the fragment and userinfo components of the URI reference [URI], if any, when generating the Referer field value. Referer = absolute-URI / partial-URI The field value is either an absolute-URI or a partial-URI. In the latter case (Section 4), the referenced URI is relative to the target URI ([URI], Section 5). The Referer header field allows servers to generate back-links to other resources for simple analytics, logging, optimized caching, etc. It also allows obsolete or mistyped links to be found for"
+            }
+          ]
+        },
+        {
+          "id": "q08",
+          "question": "What does the Content-Type response field tell a recipient?",
+          "gold_section": "8.3",
+          "gold_passage": "The \"Content-Type\" header field indicates the media type of the associated representation: either the representation enclosed in the message content or the selected representation, as determined by the message semantics.",
+          "hit_at_5": true,
+          "top5": [
+            {
+              "section": "8.3",
+              "score": 0.6575348377227783,
+              "text": "The \"Content-Type\" header field indicates the media type of the associated representation: either the representation enclosed in the message content or the selected representation, as determined by the message semantics. The indicated media type defines both the data format and how that data is intended to be processed by a recipient, within the scope of the received message semantics, after any content codings indicated by Content-Encoding are decoded. Content-Type = media-type Media types are defined in Section 8.3.1. An example of the field is Content-Type: text/html; charset=ISO-8859-4 A sender that generates a message containing content SHOULD generate a Content-Type header field in that message unless the intended media type of the enclosed representation is unknown to the sender. If a"
+            },
+            {
+              "section": "8.3",
+              "score": 0.6264902353286743,
+              "text": "of the field is Content-Type: text/html; charset=ISO-8859-4 A sender that generates a message containing content SHOULD generate a Content-Type header field in that message unless the intended media type of the enclosed representation is unknown to the sender. If a Content-Type header field is not present, the recipient MAY either assume a media type of \"application/octet-stream\" ([RFC2046], Section 4.5.1) or examine the data to determine its type. In practice, resource owners do not always properly configure their origin server to provide the correct Content-Type for a given representation. Some user agents examine the content and, in certain cases, override the received type (for example, see [Sniffing]). This \"MIME sniffing\" risks drawing incorrect conclusions about the data, which might expose the"
+            },
+            {
+              "section": "15.5.16",
+              "score": 0.6230982542037964,
+              "text": "(if any) content codings would have been accepted in the request. On the other hand, if the cause was an unsupported media type, the Accept response header field (Section 12.5.1) can be used to indicate which media types would have been accepted in the request."
+            },
+            {
+              "section": "1.3",
+              "score": 0.6212413907051086,
+              "text": "to that request with one or more response messages. The client examines received responses to see if its intentions were carried out, determining what to do next based on the status codes and content received. HTTP semantics include the intentions defined by each request method (Section 9), extensions to those semantics that might be described in request header fields, status codes that describe the response (Section 15), and other control data and resource metadata that might be given in response fields. Semantics also include representation metadata that describe how content is intended to be interpreted by a recipient, request header fields that might influence content selection, and the various selection algorithms that are collectively referred to as \"content negotiation\" (Section"
+            },
+            {
+              "section": "3.4",
+              "score": 0.6115097403526306,
+              "text": "method, and trailer fields (Section 6.5) to communicate information collected while sending the content. A server responds to a client's request by sending one or more \"response\" messages, each including a status code (Section 15). The response might also contain header fields for server information, resource metadata, and representation metadata, content to be interpreted in accordance with the status code, and trailer fields to communicate information collected while sending the content."
+            }
+          ]
+        },
+        {
+          "id": "q09",
+          "question": "When does the HTTP specification consider a method safe?",
+          "gold_section": "9.2.1",
+          "gold_passage": "Request methods are considered \"safe\" if their defined semantics are essentially read-only; i.e., the client does not request, and does not expect, any state change on the origin server as a result of applying a safe method to a target resource.",
+          "hit_at_5": true,
+          "top5": [
+            {
+              "section": "9.2.1",
+              "score": 0.7505097389221191,
+              "text": "Request methods are considered \"safe\" if their defined semantics are essentially read-only; i.e., the client does not request, and does not expect, any state change on the origin server as a result of applying a safe method to a target resource. Likewise, reasonable use of a safe method is not expected to cause any harm, loss of property, or unusual burden on the origin server. This definition of safe methods does not prevent an implementation from including behavior that is potentially harmful, that is not entirely read-only, or that causes side effects while invoking a safe method. What is important, however, is that the client did not request that additional behavior and cannot be held accountable for it. For example,"
+            },
+            {
+              "section": "9.2.1",
+              "score": 0.6377012133598328,
+              "text": "potentially harmful, that is not entirely read-only, or that causes side effects while invoking a safe method. What is important, however, is that the client did not request that additional behavior and cannot be held accountable for it. For example, most servers append request information to access log files at the completion of every response, regardless of the method, and that is considered safe even though the log storage might become full and cause the server to fail. Likewise, a safe request initiated by selecting an advertisement on the Web will often have the side effect of charging an advertising account. Of the request methods defined by this specification, the GET, HEAD, OPTIONS, and TRACE methods are defined to be"
+            },
+            {
+              "section": "16.1.2",
+              "score": 0.6309697031974792,
+              "text": "to be sent in absolute form or the target URI will be reconstructed from the request context in the same way it is for other methods. A new method definition needs to indicate whether it is safe (Section 9.2.1), idempotent (Section 9.2.2), cacheable (Section 9.2.3), what semantics are to be associated with the request content (if any), and what refinements the method makes to header field or status code semantics. If the new method is cacheable, its definition ought to describe how, and under what conditions, a cache can store a response and use it to satisfy a subsequent request. The new method ought to describe whether it can be made conditional (Section 13.1) and, if so, how a server"
+            },
+            {
+              "section": "9.2.1",
+              "score": 0.5977067947387695,
+              "text": "on the automated use of unsafe methods when processing potentially untrusted content. A user agent SHOULD distinguish between safe and unsafe methods when presenting potential actions to a user, such that the user can be made aware of an unsafe action before it is requested. When a resource is constructed such that parameters within the target URI have the effect of selecting an action, it is the resource owner's responsibility to ensure that the action is consistent with the request method semantics. For example, it is common for Web- based content editing software to use actions within query parameters, such as \"page?do=delete\". If the purpose of such a resource is to perform an unsafe action, then the resource owner MUST"
+            },
+            {
+              "section": "9.2.1",
+              "score": 0.5812622308731079,
+              "text": "safe request initiated by selecting an advertisement on the Web will often have the side effect of charging an advertising account. Of the request methods defined by this specification, the GET, HEAD, OPTIONS, and TRACE methods are defined to be safe. The purpose of distinguishing between safe and unsafe methods is to allow automated retrieval processes (spiders) and cache performance optimization (pre-fetching) to work without fear of causing harm. In addition, it allows a user agent to apply appropriate constraints on the automated use of unsafe methods when processing potentially untrusted content. A user agent SHOULD distinguish between safe and unsafe methods when presenting potential actions to a user, such that the user can be made aware of an unsafe"
+            }
+          ]
+        },
+        {
+          "id": "q10",
+          "question": "What does idempotent mean for repeating an identical HTTP request?",
+          "gold_section": "9.2.2",
+          "gold_passage": "A request method is considered \"idempotent\" if the intended effect on the server of multiple identical requests with that method is the same as the effect for a single such request.",
+          "hit_at_5": true,
+          "top5": [
+            {
+              "section": "9.2.2",
+              "score": 0.7128410339355469,
+              "text": "A request method is considered \"idempotent\" if the intended effect on the server of multiple identical requests with that method is the same as the effect for a single such request. Of the request methods defined by this specification, PUT, DELETE, and safe request methods are idempotent. Like the definition of safe, the idempotent property only applies to what has been requested by the user; a server is free to log each request separately, retain a revision control history, or implement other non-idempotent side effects for each idempotent request. Idempotent methods are distinguished because the request can be repeated automatically if a communication failure occurs before the client is able to read the server's response. For example, if a client"
+            },
+            {
+              "section": "9.2.2",
+              "score": 0.697504997253418,
+              "text": "implement other non-idempotent side effects for each idempotent request. Idempotent methods are distinguished because the request can be repeated automatically if a communication failure occurs before the client is able to read the server's response. For example, if a client sends a PUT request and the underlying connection is closed before any response is received, then the client can establish a new connection and retry the idempotent request. It knows that repeating the request will have the same intended effect, even if the original request succeeded, though the response might differ. A client SHOULD NOT automatically retry a request with a non- idempotent method unless it has some means to know that the request semantics are actually idempotent, regardless of"
+            },
+            {
+              "section": "15.5.20",
+              "score": 0.5439003705978394,
+              "text": "The 421 (Misdirected Request) status code indicates that the request was directed at a server that is unable or unwilling to produce an authoritative response for the target URI. An origin server (or gateway acting on behalf of the origin server) sends 421 to reject a target URI that does not match an origin for which the server has been configured (Section 4.3.1) or does not match the connection context over which the request was received (Section 7.4). A client that receives a 421 (Misdirected Request) response MAY retry the request, whether or not the request method is idempotent, over a different connection, such as a fresh connection specific to the target resource's origin, or via an alternative service [ALTSVC]."
+            },
+            {
+              "section": "9.2.2",
+              "score": 0.5368285179138184,
+              "text": "even if the original request succeeded, though the response might differ. A client SHOULD NOT automatically retry a request with a non- idempotent method unless it has some means to know that the request semantics are actually idempotent, regardless of the method, or some means to detect that the original request was never applied. For example, a user agent can repeat a POST request automatically if it knows (through design or configuration) that the request is safe for that resource. Likewise, a user agent designed specifically to operate on a version control repository might be able to recover from partial failure conditions by checking the target resource revision(s) after a failed connection, reverting or fixing any changes that were partially"
+            },
+            {
+              "section": "7",
+              "score": 0.5357301235198975,
+              "text": "specific identifier might be supplied within the content itself. HTTP request message routing is determined by each client based on the target resource, the client's proxy configuration, and establishment or reuse of an inbound connection. The corresponding response routing follows the same connection chain back to the client. The IANA will keep a record of all such changes, and make them available upon request."
+            }
+          ]
+        },
+        {
+          "id": "q11",
+          "question": "What does the GET method ask the server to do?",
+          "gold_section": "9.3.1",
+          "gold_passage": "The GET method requests transfer of a current selected representation for the target resource.",
+          "hit_at_5": true,
+          "top5": [
+            {
+              "section": "9.3.1",
+              "score": 0.597846508026123,
+              "text": "alter the meaning or target of the request, and might lead some implementations to reject the request and close the connection because of its potential as a request smuggling attack (Section 11.2 of [HTTP/1.1]). A client SHOULD NOT generate content in a GET request unless it is made directly to an origin server that has previously indicated, in or out of band, that such a request has a purpose and will be adequately supported. An origin server SHOULD NOT rely on private agreements to receive content, since participants in HTTP communication are often unaware of intermediaries along the request chain. The response to a GET request is cacheable; a cache MAY use it to satisfy subsequent GET and HEAD requests"
+            },
+            {
+              "section": "9.3.1",
+              "score": 0.5553330183029175,
+              "text": "The GET method requests transfer of a current selected representation for the target resource. A successful response reflects the quality of \"sameness\" identified by the target URI (Section 1.2.2 of [URI]). Hence, retrieving identifiable information via HTTP is usually performed by making a GET request on an identifier associated with the potential for providing that information in a 200 (OK) response. GET is the primary mechanism of information retrieval and the focus of almost all performance optimizations. Applications that produce a URI for each important resource can benefit from those optimizations while enabling their reuse by other applications, creating a network effect that promotes further expansion of the Web. It is tempting to think of resource identifiers as remote file"
+            },
+            {
+              "section": "9.3.2",
+              "score": 0.5543488264083862,
+              "text": "The HEAD method is identical to GET except that the server MUST NOT send content in the response. HEAD is used to obtain metadata about the selected representation without transferring its representation data, often for the sake of testing hypertext links or finding recent modifications. The server SHOULD send the same header fields in response to a HEAD request as it would have sent if the request method had been GET. However, a server MAY omit header fields for which a value is determined only while generating the content. For example, some servers buffer a dynamic response to GET until a minimum amount of data is generated so that they can more efficiently delimit small responses or make late decisions"
+            },
+            {
+              "section": "7.3.1",
+              "score": 0.5427982807159424,
+              "text": "If the client has a cache [CACHING] and the request can be satisfied by it, then the request is usually directed there first."
+            },
+            {
+              "section": "7.4",
+              "score": 0.541865885257721,
+              "text": "Once a request is received by a server and parsed sufficiently to determine its target URI, the server decides whether to process the request itself, forward the request to another server, redirect the client to a different resource, respond with an error, or drop the connection. This decision can be influenced by anything about the request or connection context, but is specifically directed at whether the server has been configured to process requests for that target URI and whether the connection context is appropriate for that request. For example, a request might have been misdirected, deliberately or accidentally, such that the information within a received Host header field differs from the connection's host or port. If the connection is from"
+            }
+          ]
+        },
+        {
+          "id": "q12",
+          "question": "What does a Location response field identify?",
+          "gold_section": "10.2.2",
+          "gold_passage": "The \"Location\" header field is used in some responses to refer to a specific resource in relation to the response.",
+          "hit_at_5": true,
+          "top5": [
+            {
+              "section": "8.7",
+              "score": 0.6703137755393982,
+              "text": "For a 201 (Created) response to a state-changing method, a Content-Location field value that is identical to the Location field value indicates that this content is a current representation of the newly created resource. * Otherwise, such a Content-Location indicates that this content is a representation reporting on the requested action's status and that the same report is available (for future access with GET) at the given URI. For example, a purchase transaction made via a POST request might include a receipt document as the content of the 200 (OK) response; the Content-Location field value provides an identifier for retrieving a copy of that same receipt in the future. A user agent that sends Content-Location in a request message is"
+            },
+            {
+              "section": "15.4.4",
+              "score": 0.6574265956878662,
+              "text": "not have a representation of the target resource that can be transferred by the server over HTTP. However, the Location field value refers to a resource that is descriptive of the target resource, such that making a retrieval request on that other resource might result in a representation that is useful to recipients without implying that it represents the original target resource. Note that answers to the questions of what can be represented, what representations are adequate, and what might be a useful description are outside the scope of HTTP. Except for responses to a HEAD request, the representation of a 303 response ought to contain a short hypertext note with a hyperlink to the same URI reference provided in"
+            },
+            {
+              "section": "10.2.2",
+              "score": 0.6565545797348022,
+              "text": "The \"Location\" header field is used in some responses to refer to a specific resource in relation to the response. The type of relationship is defined by the combination of request method and status code semantics. Location = URI-reference The field value consists of a single URI-reference. When it has the form of a relative reference ([URI], Section 4.2), the final value is computed by resolving it against the target URI ([URI], Section 5). For 201 (Created) responses, the Location value refers to the primary resource created by the request. For 3xx (Redirection) responses, the Location value refers to the preferred target resource for automatically redirecting the request. If the Location value provided in a 3xx (Redirection) response does not"
+            },
+            {
+              "section": "10.2.2",
+              "score": 0.5997394323348999,
+              "text": "a Location value would not be appropriate. For example, the Location header field in a 201 (Created) response is supposed to provide a URI that is specific to the created resource. | *Note:* Some recipients attempt to recover from Location header | fields that are not valid URI references. This specification | does not mandate or define such processing, but does allow it | for the sake of robustness. A Location field value cannot | allow a list of members because the comma list separator is a | valid data character within a URI-reference. If an invalid | message is sent with multiple Location field lines, a recipient | along the path might combine those field lines into one value."
+            },
+            {
+              "section": "8.7",
+              "score": 0.5979278087615967,
+              "text": "a receipt document as the content of the 200 (OK) response; the Content-Location field value provides an identifier for retrieving a copy of that same receipt in the future. A user agent that sends Content-Location in a request message is stating that its value refers to where the user agent originally obtained the content of the enclosed representation (prior to any modifications made by that user agent). In other words, the user agent is providing a back link to the source of the original representation. An origin server that receives a Content-Location field in a request message MUST treat the information as transitory request context rather than as metadata to be saved verbatim as part of the representation. An origin"
+            }
+          ]
+        },
+        {
+          "id": "q13",
+          "question": "How should a client interpret Retry-After on a 503 response?",
+          "gold_section": "10.2.3",
+          "gold_passage": "When sent with a 503 (Service Unavailable) response, Retry-After indicates how long the service is expected to be unavailable to the client.",
+          "hit_at_5": true,
+          "top5": [
+            {
+              "section": "10.2.3",
+              "score": 0.7447839379310608,
+              "text": "Servers send the \"Retry-After\" header field to indicate how long the user agent ought to wait before making a follow-up request. When sent with a 503 (Service Unavailable) response, Retry-After indicates how long the service is expected to be unavailable to the client. When sent with any 3xx (Redirection) response, Retry-After indicates the minimum time that the user agent is asked to wait before issuing the redirected request. The Retry-After field value can be either an HTTP-date or a number of seconds to delay after receiving the response. Retry-After = HTTP-date / delay-seconds A delay-seconds value is a non-negative decimal integer, representing time in seconds. delay-seconds = 1*DIGIT Two examples of its use are Retry-After: Fri, 31 Dec 1999 23:59:59"
+            },
+            {
+              "section": "15.6.4",
+              "score": 0.6424477100372314,
+              "text": "The 503 (Service Unavailable) status code indicates that the server is currently unable to handle the request due to a temporary overload or scheduled maintenance, which will likely be alleviated after some delay. The server MAY send a Retry-After header field (Section 10.2.3) to suggest an appropriate amount of time for the client to wait before retrying the request. | *Note:* The existence of the 503 status code does not imply | that a server has to use it when becoming overloaded. Some | servers might simply refuse the connection."
+            },
+            {
+              "section": "9.2.2",
+              "score": 0.6404760479927063,
+              "text": "Likewise, a user agent designed specifically to operate on a version control repository might be able to recover from partial failure conditions by checking the target resource revision(s) after a failed connection, reverting or fixing any changes that were partially applied, and then automatically retrying the requests that failed. Some clients take a riskier approach and attempt to guess when an automatic retry is possible. For example, a client might automatically retry a POST request if the underlying transport connection closed before any part of a response is received, particularly if an idle persistent connection was used. A proxy MUST NOT automatically retry non-idempotent requests. A client SHOULD NOT automatically retry a failed automatic retry."
+            },
+            {
+              "section": "9.2.2",
+              "score": 0.6201362013816833,
+              "text": "even if the original request succeeded, though the response might differ. A client SHOULD NOT automatically retry a request with a non- idempotent method unless it has some means to know that the request semantics are actually idempotent, regardless of the method, or some means to detect that the original request was never applied. For example, a user agent can repeat a POST request automatically if it knows (through design or configuration) that the request is safe for that resource. Likewise, a user agent designed specifically to operate on a version control repository might be able to recover from partial failure conditions by checking the target resource revision(s) after a failed connection, reverting or fixing any changes that were partially"
+            },
+            {
+              "section": "10.2.3",
+              "score": 0.5909702777862549,
+              "text": "of seconds to delay after receiving the response. Retry-After = HTTP-date / delay-seconds A delay-seconds value is a non-negative decimal integer, representing time in seconds. delay-seconds = 1*DIGIT Two examples of its use are Retry-After: Fri, 31 Dec 1999 23:59:59 GMT Retry-After: 120 In the latter example, the delay is 2 minutes."
+            }
+          ]
+        },
+        {
+          "id": "q14",
+          "question": "What forms can the extra information following an HTTP authentication scheme take?",
+          "gold_section": "11.2",
+          "gold_passage": "The authentication scheme is followed by additional information necessary for achieving authentication via that scheme as either a comma-separated list of parameters or a single sequence of characters capable of holding base64-encoded information.",
+          "hit_at_5": false,
+          "top5": [
+            {
+              "section": "11.6.3",
+              "score": 0.7831214666366577,
+              "text": "HTTP authentication schemes can use the \"Authentication-Info\" response field to communicate information after the client's authentication credentials have been accepted. This information can include a finalization message from the server (e.g., it can contain the server authentication). The field value is a list of parameters (name/value pairs), using the \"auth-param\" syntax defined in Section 11.3. This specification only describes the generic format; authentication schemes using Authentication-Info will define the individual parameters. The \"Digest\" Authentication Scheme, for instance, defines multiple parameters in Section 3.5 of [RFC7616]. Authentication-Info = #auth-param The Authentication-Info field can be used in any HTTP response, independently of request method and status code. Its semantics are defined by the authentication scheme indicated by the Authorization header field (Section"
+            },
+            {
+              "section": "17.16.4",
+              "score": 0.7420508861541748,
+              "text": "Adding information to responses that are sent over an unencrypted channel can affect security and privacy. The presence of the Authentication-Info and Proxy-Authentication-Info header fields alone indicates that HTTP authentication is in use. Additional information could be exposed by the contents of the authentication-scheme specific parameters; this will have to be considered in the definitions of these schemes."
+            },
+            {
+              "section": "11.1",
+              "score": 0.7107678651809692,
+              "text": "HTTP provides a general framework for access control and authentication, via an extensible set of challenge-response authentication schemes, which can be used by a server to challenge a client request and by a client to provide authentication information. It uses a case-insensitive token to identify the authentication scheme: auth-scheme = token Aside from the general framework, this document does not specify any authentication schemes. New and existing authentication schemes are specified independently and ought to be registered within the \"Hypertext Transfer Protocol (HTTP) Authentication Scheme Registry\". For example, the \"basic\" and \"digest\" authentication schemes are defined by [RFC7617] and [RFC7616], respectively."
+            },
+            {
+              "section": "17.16.1",
+              "score": 0.6955052614212036,
+              "text": "The HTTP authentication framework does not define a single mechanism for maintaining the confidentiality of credentials; instead, each authentication scheme defines how the credentials are encoded prior to transmission. While this provides flexibility for the development of future authentication schemes, it is inadequate for the protection of existing schemes that provide no confidentiality on their own, or that do not sufficiently protect against replay attacks. Furthermore, if the server expects credentials that are specific to each individual user, the exchange of those credentials will have the effect of identifying that user even if the content within credentials remains confidential. HTTP depends on the security properties of the underlying transport- or session-level connection to provide confidential transmission of fields. Services that"
+            },
+            {
+              "section": "11.6.3",
+              "score": 0.6803755164146423,
+              "text": "in Section 3.5 of [RFC7616]. Authentication-Info = #auth-param The Authentication-Info field can be used in any HTTP response, independently of request method and status code. Its semantics are defined by the authentication scheme indicated by the Authorization header field (Section 11.6.2) of the corresponding request. A proxy forwarding a response is not allowed to modify the field value in any way. Authentication-Info can be sent as a trailer field (Section 6.5) when the authentication scheme explicitly allows this."
+            }
+          ]
+        },
+        {
+          "id": "q15",
+          "question": "What does the 4xx status-code class indicate, and what should a server generally send with it?",
+          "gold_section": "15.5",
+          "gold_passage": "The 4xx (Client Error) class of status code indicates that the client seems to have erred. Except when responding to a HEAD request, the server SHOULD send a representation containing an explanation of the error situation, and whether it is a temporary or permanent condition.",
+          "hit_at_5": true,
+          "top5": [
+            {
+              "section": "15.5",
+              "score": 0.7920539379119873,
+              "text": "The 4xx (Client Error) class of status code indicates that the client seems to have erred. Except when responding to a HEAD request, the server SHOULD send a representation containing an explanation of the error situation, and whether it is a temporary or permanent condition. These status codes are applicable to any request method. User agents SHOULD display any included representation to the user."
+            },
+            {
+              "section": "15.6",
+              "score": 0.7263360023498535,
+              "text": "The 5xx (Server Error) class of status code indicates that the server is aware that it has erred or is incapable of performing the requested method. Except when responding to a HEAD request, the server SHOULD send a representation containing an explanation of the error situation, and whether it is a temporary or permanent condition. A user agent SHOULD display any included representation to the user. These status codes are applicable to any request method."
+            },
+            {
+              "section": "15",
+              "score": 0.7233144044876099,
+              "text": "* 1xx (Informational): The request was received, continuing process * 2xx (Successful): The request was successfully received, understood, and accepted * 3xx (Redirection): Further action needs to be taken in order to complete the request * 4xx (Client Error): The request contains bad syntax or cannot be fulfilled * 5xx (Server Error): The server failed to fulfill an apparently valid request HTTP status codes are extensible. A client is not required to understand the meaning of all registered status codes, though such understanding is obviously desirable. However, a client MUST understand the class of any status code, as indicated by the first digit, and treat an unrecognized status code as being equivalent to the x00 status code of that class."
+            },
+            {
+              "section": "15",
+              "score": 0.675650954246521,
+              "text": "The status code of a response is a three-digit integer code that describes the result of the request and the semantics of the response, including whether the request was successful and what content is enclosed (if any). All valid status codes are within the range of 100 to 599, inclusive. The first digit of the status code defines the class of response. The last two digits do not have any categorization role. There are five values for the first digit: * 1xx (Informational): The request was received, continuing process * 2xx (Successful): The request was successfully received, understood, and accepted * 3xx (Redirection): Further action needs to be taken in order to complete the request * 4xx (Client Error): The"
+            },
+            {
+              "section": "15",
+              "score": 0.6617459058761597,
+              "text": "status code. The response message will usually contain a representation that explains the status. Values outside the range 100..599 are invalid. Implementations often use three-digit integer values outside of that range (i.e., 600..999) for internal communication of non-HTTP status (e.g., library errors). A client that receives a response with an invalid status code SHOULD process the response as if it had a 5xx (Server Error) status code. A single request can have multiple associated responses: zero or more \"interim\" (non-final) responses with status codes in the \"informational\" (1xx) range, followed by exactly one \"final\" response with a status code in one of the other ranges."
+            }
+          ]
+        }
+      ]
+    },
+    "240": {
+      "chunk_words": 240,
+      "overlap_words": 80,
+      "chunk_count": 463,
+      "questions": 15,
+      "hits_at_5": 13,
+      "recall_at_5": 0.8666666666666667,
+      "details": [
+        {
+          "id": "q01",
+          "question": "In HTTP, what does the protocol call the thing a request is directed at, and does HTTP restrict what that thing can be?",
+          "gold_section": "3.1",
+          "gold_passage": "The target of an HTTP request is called a \"resource\". HTTP does not limit the nature of a resource; it merely defines an interface that might be used to interact with resources.",
+          "hit_at_5": true,
+          "top5": [
+            {
+              "section": "3.4",
+              "score": 0.7050449252128601,
+              "text": "HTTP is a stateless request/response protocol for exchanging \"messages\" across a connection. The terms \"sender\" and \"recipient\" refer to any implementation that sends or receives a given message, respectively. A client sends requests to a server in the form of a \"request\" message with a method (Section 9) and request target (Section 7.1). The request might also contain header fields (Section 6.3) for request modifiers, client information, and representation metadata, content (Section 6.4) intended for processing in accordance with the method, and trailer fields (Section 6.5) to communicate information collected while sending the content. A server responds to a client's request by sending one or more \"response\" messages, each including a status code (Section 15). The response might also contain header fields for server information, resource metadata, and representation metadata, content to be interpreted in accordance with the status code, and trailer fields to communicate information collected while sending the content."
+            },
+            {
+              "section": "1.3",
+              "score": 0.6988217234611511,
+              "text": "HTTP provides a uniform interface for interacting with a resource (Section 3.1) -- regardless of its type, nature, or implementation -- by sending messages that manipulate or transfer representations (Section 3.2). Each message is either a request or a response. A client constructs request messages that communicate its intentions and routes those messages toward an identified origin server. A server listens for requests, parses each message received, interprets the message semantics in relation to the identified target resource, and responds to that request with one or more response messages. The client examines received responses to see if its intentions were carried out, determining what to do next based on the status codes and content received. HTTP semantics include the intentions defined by each request method (Section 9), extensions to those semantics that might be described in request header fields, status codes that describe the response (Section 15), and other control data and resource metadata that might be given in response fields. Semantics also include representation metadata that describe how content is intended to be interpreted by a recipient, request header fields that might influence content selection, and the various selection algorithms that are collectively referred to as \"content negotiation\" (Section 12)."
+            },
+            {
+              "section": "3.1",
+              "score": 0.6787477731704712,
+              "text": "The target of an HTTP request is called a \"resource\". HTTP does not limit the nature of a resource; it merely defines an interface that might be used to interact with resources. Most resources are identified by a Uniform Resource Identifier (URI), as described in Section 4. One design goal of HTTP is to separate resource identification from request semantics, which is made possible by vesting the request semantics in the request method (Section 9) and a few request- modifying header fields. A resource cannot treat a request in a manner inconsistent with the semantics of the method of the request. For example, though the URI of a resource might imply semantics that are not safe, a client can expect the resource to avoid actions that are unsafe when processing a request with a safe method (see Section 9.2.1). HTTP relies upon the Uniform Resource Identifier (URI) standard [URI] to indicate the target resource (Section 7.1) and relationships between resources."
+            },
+            {
+              "section": "4.3.2",
+              "score": 0.643836498260498,
+              "text": "Although HTTP is independent of the transport protocol, the \"http\" scheme (Section 4.2.1) is specific to associating authority with whomever controls the origin server listening for TCP connections on the indicated port of whatever host is identified within the authority component. This is a very weak sense of authority because it depends on both client-specific name resolution mechanisms and communication that might not be secured from an on-path attacker. Nevertheless, it is a sufficient minimum for binding \"http\" identifiers to an origin server for consistent resolution within a trusted environment. If the host identifier is provided as an IP address, the origin server is the listener (if any) on the indicated TCP port at that IP address. If host is a registered name, the registered name is an indirect identifier for use with a name resolution service, such as DNS, to find an address for an appropriate origin server. When an \"http\" URI is used within a context that calls for access to the indicated resource, a client MAY attempt access by resolving the host identifier to an IP address, establishing a TCP connection to that address on the indicated port, and sending over that connection an HTTP request message containing a request target that matches the client's target URI (Section 7.1). If the server responds to such a request with a non-interim HTTP response message, as described in Section 15, then that response is considered an authoritative answer to"
+            },
+            {
+              "section": "6.2",
+              "score": 0.6436168551445007,
+              "text": "Messages start with control data that describe its primary purpose. Request message control data includes a request method (Section 9), request target (Section 7.1), and protocol version (Section 2.5). Response message control data includes a status code (Section 15), optional reason phrase, and protocol version. In HTTP/1.1 ([HTTP/1.1]) and earlier, control data is sent as the first line of a message. In HTTP/2 ([HTTP/2]) and HTTP/3 ([HTTP/3]), control data is sent as pseudo-header fields with a reserved name prefix (e.g., \":authority\"). Every HTTP message has a protocol version. Depending on the version in use, it might be identified within the message explicitly or inferred by the connection over which the message is received. Recipients use that version information to determine limitations or potential for later communication with that sender. When a message is forwarded by an intermediary, the protocol version is updated to reflect the version used by that intermediary. The Via header field (Section 7.6.3) is used to communicate upstream protocol information within a forwarded message. A client SHOULD send a request version equal to the highest version to which the client is conformant and whose major version is no higher than the highest version supported by the server, if this is known. A client MUST NOT send a version to which it is not conformant. A client MAY send a lower request version if it is known that the server incorrectly implements the HTTP specification, but only after"
+            }
+          ]
+        },
+        {
+          "id": "q02",
+          "question": "How does RFC 9110 define a representation of a resource?",
+          "gold_section": "3.2",
+          "gold_passage": "A \"representation\" is information that is intended to reflect a past, current, or desired state of a given resource, in a format that can be readily communicated via the protocol.",
+          "hit_at_5": true,
+          "top5": [
+            {
+              "section": "3.2",
+              "score": 0.5747140645980835,
+              "text": "A \"representation\" is information that is intended to reflect a past, current, or desired state of a given resource, in a format that can be readily communicated via the protocol. A representation consists of a set of representation metadata and a potentially unbounded stream of representation data (Section 8). HTTP allows \"information hiding\" behind its uniform interface by defining communication with respect to a transferable representation of the resource state, rather than transferring the resource itself. This allows the resource identified by a URI to be anything, including temporal functions like \"the current weather in Laguna Beach\", while potentially providing information that represents that resource at the time a message is generated [REST]. The uniform interface is similar to a window through which one can observe and act upon a thing only through the communication of messages to an independent actor on the other side. A shared abstraction is needed to represent (\"take the place of\") the current or desired state of that thing in our communications. When a representation is hypertext, it can provide both a representation of the resource state and processing instructions that help guide the recipient's future interactions. A target resource might be provided with, or be capable of generating, multiple representations that are each intended to reflect the resource's current state. An algorithm, usually based on content negotiation (Section 12), would be used to select one of those representations as being most applicable to a"
+            },
+            {
+              "section": "14.1",
+              "score": 0.567587673664093,
+              "text": "Representation data can be partitioned into subranges when there are addressable structural units inherent to that data's content coding or media type. For example, octet (a.k.a. byte) boundaries are a structural unit common to all representation data, allowing partitions of the data to be identified as a range of bytes at some offset from the start or end of that data. This general notion of a \"range unit\" is used in the Accept-Ranges (Section 14.3) response header field to advertise support for range requests, the Range (Section 14.2) request header field to delineate the parts of a representation that are requested, and the Content-Range (Section 14.4) header field to describe which part of a representation is being transferred. range-unit = token All range unit names are case-insensitive and ought to be registered within the \"HTTP Range Unit Registry\", as defined in Section 16.5.1. Range units are intended to be extensible, as described in Section 16.5."
+            },
+            {
+              "section": "3.2",
+              "score": 0.557595431804657,
+              "text": "state of that thing in our communications. When a representation is hypertext, it can provide both a representation of the resource state and processing instructions that help guide the recipient's future interactions. A target resource might be provided with, or be capable of generating, multiple representations that are each intended to reflect the resource's current state. An algorithm, usually based on content negotiation (Section 12), would be used to select one of those representations as being most applicable to a given request. This \"selected representation\" provides the data and metadata for evaluating conditional requests (Section 13) and constructing the content for 200 (OK), 206 (Partial Content), and 304 (Not Modified) responses to GET (Section 9.3.1)."
+            },
+            {
+              "section": "15.4.4",
+              "score": 0.5551759004592896,
+              "text": "not have a representation of the target resource that can be transferred by the server over HTTP. However, the Location field value refers to a resource that is descriptive of the target resource, such that making a retrieval request on that other resource might result in a representation that is useful to recipients without implying that it represents the original target resource. Note that answers to the questions of what can be represented, what representations are adequate, and what might be a useful description are outside the scope of HTTP. Except for responses to a HEAD request, the representation of a 303 response ought to contain a short hypertext note with a hyperlink to the same URI reference provided in the Location header field."
+            },
+            {
+              "section": "8.1",
+              "score": 0.5503774285316467,
+              "text": "The representation data associated with an HTTP message is either provided as the content of the message or referred to by the message semantics and the target URI. The representation data is in a format and encoding defined by the representation metadata header fields. The data type of the representation data is determined via the header fields Content-Type and Content-Encoding. These define a two-layer, ordered encoding model: representation-data := Content-Encoding( Content-Type( data ) )"
+            }
+          ]
+        },
+        {
+          "id": "q03",
+          "question": "What are URI references used for in HTTP?",
+          "gold_section": "4.1",
+          "gold_passage": "URI references are used to target requests, indicate redirects, and define relationships.",
+          "hit_at_5": true,
+          "top5": [
+            {
+              "section": "7.1",
+              "score": 0.6550372838973999,
+              "text": "Although HTTP is used in a wide variety of applications, most clients rely on the same resource identification mechanism and configuration techniques as general-purpose Web browsers. Even when communication options are hard-coded in a client's configuration, we can think of their combined effect as a URI reference (Section 4.1). A URI reference is resolved to its absolute form in order to obtain the \"target URI\". The target URI excludes the reference's fragment component, if any, since fragment identifiers are reserved for client-side processing ([URI], Section 3.5). To perform an action on a \"target resource\", the client sends a request message containing enough components of its parsed target URI to enable recipients to identify that same resource. For historical reasons, the parsed target URI components, collectively referred to as the \"request target\", are sent within the message control data and the Host header field (Section 7.2). There are two unusual cases for which the request target components are in a method-specific form: * For CONNECT (Section 9.3.6), the request target is the host name and port number of the tunnel destination, separated by a colon. * For OPTIONS (Section 9.3.7), the request target can be a single asterisk (\"*\"). See the respective method definitions for details. These forms MUST NOT be used with other methods. Upon receipt of a client's request, a server reconstructs the target URI from the received components in accordance with their local configuration and incoming connection context."
+            },
+            {
+              "section": "17",
+              "score": 0.6526409387588501,
+              "text": "This section is meant to inform developers, information providers, and users of known security concerns relevant to HTTP semantics and its use for transferring information over the Internet. Considerations related to caching are discussed in Section 7 of [CACHING], and considerations related to HTTP/1.1 message syntax and parsing are discussed in Section 11 of [HTTP/1.1]. The list of considerations below is not exhaustive. Most security concerns related to HTTP semantics are about securing server-side applications (code behind the HTTP interface), securing user agent processing of content received via HTTP, or secure use of the Internet in general, rather than security of the protocol. The security considerations for URIs, which are fundamental to HTTP operation, are discussed in Section 7 of [URI]. Various organizations maintain topical information and links to current research on Web application security (e.g., [OWASP])."
+            },
+            {
+              "section": "4.1",
+              "score": 0.6484582424163818,
+              "text": "1*( \"/\" segment ) partial-URI = relative-part [ \"?\" query ] Each protocol element in HTTP that allows a URI reference will indicate in its ABNF production whether the element allows any form of reference (URI-reference), only a URI in absolute form (absolute- URI), only the path and optional query components (partial-URI), or some combination of the above. Unless otherwise indicated, URI references are parsed relative to the target URI (Section 7.1). It is RECOMMENDED that all senders and recipients support, at a minimum, URIs with lengths of 8000 octets in protocol elements. Note that this implies some structures and on-wire representations (for example, the request line in HTTP/1.1) will necessarily be larger in some cases."
+            },
+            {
+              "section": "4.1",
+              "score": 0.621040403842926,
+              "text": "URI references are used to target requests, indicate redirects, and define relationships. The definitions of \"URI-reference\", \"absolute-URI\", \"relative-part\", \"authority\", \"port\", \"host\", \"path-abempty\", \"segment\", and \"query\" are adopted from the URI generic syntax. An \"absolute-path\" rule is defined for protocol elements that can contain a non-empty path component. (This rule differs slightly from the path-abempty rule of RFC 3986, which allows for an empty path, and path-absolute rule, which does not allow paths that begin with \"//\".) A \"partial-URI\" rule is defined for protocol elements that can contain a relative URI but not a fragment component. URI-reference = <URI-reference, see [URI], Section 4.1> absolute-URI = <absolute-URI, see [URI], Section 4.3> relative-part = <relative-part, see [URI], Section 4.2> authority = <authority, see [URI], Section 3.2> uri-host = <host, see [URI], Section 3.2.2> port = <port, see [URI], Section 3.2.3> path-abempty = <path-abempty, see [URI], Section 3.3> segment = <segment, see [URI], Section 3.3> query = <query, see [URI], Section 3.4> absolute-path = 1*( \"/\" segment ) partial-URI = relative-part [ \"?\" query ] Each protocol element in HTTP that allows a URI reference will indicate in its ABNF production whether the element allows any form of reference (URI-reference), only a URI in absolute form (absolute- URI), only the path and optional query components (partial-URI), or some combination of the above. Unless otherwise indicated, URI references are parsed relative to the target URI (Section 7.1). It is RECOMMENDED that all senders and recipients"
+            },
+            {
+              "section": "7.1",
+              "score": 0.6133583784103394,
+              "text": "form: * For CONNECT (Section 9.3.6), the request target is the host name and port number of the tunnel destination, separated by a colon. * For OPTIONS (Section 9.3.7), the request target can be a single asterisk (\"*\"). See the respective method definitions for details. These forms MUST NOT be used with other methods. Upon receipt of a client's request, a server reconstructs the target URI from the received components in accordance with their local configuration and incoming connection context. This reconstruction is specific to each major protocol version. For example, Section 3.3 of [HTTP/1.1] defines how a server determines the target URI of an HTTP/1.1 request. | *Note:* Previous specifications defined the recomposed target | URI as a distinct concept, the \"effective request URI\"."
+            }
+          ]
+        },
+        {
+          "id": "q04",
+          "question": "What security protocol must the https URI scheme be capable of establishing for HTTP communication?",
+          "gold_section": "4.2.2",
+          "gold_passage": "The \"https\" URI scheme is hereby defined for minting identifiers within the hierarchical namespace governed by a potential origin server listening for TCP connections on a given port and capable of establishing a TLS ([TLS13]) connection that has been secured for HTTP communication.",
+          "hit_at_5": true,
+          "top5": [
+            {
+              "section": "4.2.2",
+              "score": 0.6439321041107178,
+              "text": "The \"https\" URI scheme is hereby defined for minting identifiers within the hierarchical namespace governed by a potential origin server listening for TCP connections on a given port and capable of establishing a TLS ([TLS13]) connection that has been secured for HTTP communication. In this context, \"secured\" specifically means that the server has been authenticated as acting on behalf of the identified authority and all HTTP communication with that server has confidentiality and integrity protection that is acceptable to both client and server. https-URI = \"https\" \"://\" authority path-abempty [ \"?\" query ] The origin server for an \"https\" URI is identified by the authority component, which includes a host identifier ([URI], Section 3.2.2) and optional port number ([URI], Section 3.2.3). If the port subcomponent is empty or not given, TCP port 443 (the reserved port for HTTP over TLS) is the default. The origin determines who has the right to respond authoritatively to requests that target the identified resource, as defined in Section 4.3.3. A sender MUST NOT generate an \"https\" URI with an empty host identifier. A recipient that processes such a URI reference MUST reject it as invalid. The hierarchical path component and optional query component identify the target resource within that origin server's namespace. A client MUST ensure that its HTTP requests for an \"https\" resource are secured, prior to being communicated, and that it only accepts secured responses to those requests. Note that the definition"
+            },
+            {
+              "section": "4.2.2",
+              "score": 0.6332497596740723,
+              "text": "as defined in Section 4.3.3. A sender MUST NOT generate an \"https\" URI with an empty host identifier. A recipient that processes such a URI reference MUST reject it as invalid. The hierarchical path component and optional query component identify the target resource within that origin server's namespace. A client MUST ensure that its HTTP requests for an \"https\" resource are secured, prior to being communicated, and that it only accepts secured responses to those requests. Note that the definition of what cryptographic mechanisms are acceptable to client and server are usually negotiated and can change over time. Resources made available via the \"https\" scheme have no shared identity with the \"http\" scheme. They are distinct origins with separate namespaces. However, extensions to HTTP that are defined as applying to all origins with the same host, such as the Cookie protocol [COOKIE], allow information set by one service to impact communication with other services within a matching group of host domains. Such extensions ought to be designed with great care to prevent information obtained from a secured connection being inadvertently exchanged within an unsecured context."
+            },
+            {
+              "section": "4.3.3",
+              "score": 0.6281692385673523,
+              "text": "has been secured) because a network attacker might cause connections for one port to be received at some other port. Failing to check the target URI might allow such an attacker to replace a response to one target URI (e.g., \"https://example.com/foo\") with a seemingly authoritative response from the other port (e.g., \"https://example.com:8000/foo\"). Note that the \"https\" scheme does not rely on TCP and the connected port number for associating authority, since both are outside the secured communication and thus cannot be trusted as definitive. Hence, the HTTP communication might take place over any channel that has been secured, as defined in Section 4.2.2, including protocols that don't use TCP. When an \"https\" URI is used within a context that calls for access to the indicated resource, a client MAY attempt access by resolving the host identifier to an IP address, establishing a TCP connection to that address on the indicated port, securing the connection end-to- end by successfully initiating TLS over TCP with confidentiality and integrity protection, and sending over that connection an HTTP request message containing a request target that matches the client's target URI (Section 7.1). If the server responds to such a request with a non-interim HTTP response message, as described in Section 15, then that response is considered an authoritative answer to the client's request. Note, however, that the above is not the only means for obtaining an authoritative response, nor does it imply that an"
+            },
+            {
+              "section": "17.1",
+              "score": 0.5890799760818481,
+              "text": "requests over more secure transfer protocols. Furthermore, after an IP address is obtained, establishing authority for an \"http\" URI is vulnerable to attacks on Internet Protocol routing. The \"https\" scheme (Section 4.2.2) is intended to prevent (or at least reveal) many of these potential attacks on establishing authority, provided that the negotiated connection is secured and the client properly verifies that the communicating server's identity matches the target URI's authority component (Section 4.3.4). Correctly implementing such verification can be difficult (see [Georgiev]). Authority for a given origin server can be delegated through protocol extensions; for example, [ALTSVC]. Likewise, the set of servers for which a connection is considered authoritative can be changed with a protocol extension like [RFC8336]. Providing a response from a non-authoritative source, such as a shared proxy cache, is often useful to improve performance and availability, but only to the extent that the source can be trusted or the distrusted response can be safely used. Unfortunately, communicating authority to users can be difficult. For example, \"phishing\" is an attack on the user's perception of authority, where that perception can be misled by presenting similar branding in hypertext, possibly aided by userinfo obfuscating the authority component (see Section 4.2.1). User agents can reduce the impact of phishing attacks by enabling users to easily inspect a target URI prior to making an action, by prominently distinguishing (or rejecting) userinfo when present, and by not sending stored credentials and cookies"
+            },
+            {
+              "section": "17.1",
+              "score": 0.5766595602035522,
+              "text": "HTTP relies on the notion of an \"authoritative response\": a response that has been determined by (or at the direction of) the origin server identified within the target URI to be the most appropriate response for that request given the state of the target resource at the time of response message origination. When a registered name is used in the authority component, the \"http\" URI scheme (Section 4.2.1) relies on the user's local name resolution service to determine where it can find authoritative responses. This means that any attack on a user's network host table, cached names, or name resolution libraries becomes an avenue for attack on establishing authority for \"http\" URIs. Likewise, the user's choice of server for Domain Name Service (DNS), and the hierarchy of servers from which it obtains resolution results, could impact the authenticity of address mappings; DNS Security Extensions (DNSSEC, [RFC4033]) are one way to improve authenticity, as are the various mechanisms for making DNS requests over more secure transfer protocols. Furthermore, after an IP address is obtained, establishing authority for an \"http\" URI is vulnerable to attacks on Internet Protocol routing. The \"https\" scheme (Section 4.2.2) is intended to prevent (or at least reveal) many of these potential attacks on establishing authority, provided that the negotiated connection is secured and the client properly verifies that the communicating server's identity matches the target URI's authority component (Section 4.3.4). Correctly implementing such verification can be difficult"
+            }
+          ]
+        },
+        {
+          "id": "q05",
+          "question": "What is the purpose of message framing on an HTTP connection?",
+          "gold_section": "6.1",
+          "gold_passage": "Message framing indicates how each message begins and ends, such that each message can be distinguished from other messages or noise on the same connection.",
+          "hit_at_5": true,
+          "top5": [
+            {
+              "section": "6.1",
+              "score": 0.7469165325164795,
+              "text": "Message framing indicates how each message begins and ends, such that each message can be distinguished from other messages or noise on the same connection. Each major version of HTTP defines its own framing mechanism. HTTP/0.9 and early deployments of HTTP/1.0 used closure of the underlying connection to end a response. For backwards compatibility, this implicit framing is also allowed in HTTP/1.1. However, implicit framing can fail to distinguish an incomplete response if the connection closes early. For that reason, almost all modern implementations use explicit framing in the form of length- delimited sequences of message data. A message is considered \"complete\" when all of the octets indicated by its framing are available. Note that, when no explicit framing is used, a response message that is ended by the underlying connection's close is considered complete even though it might be indistinguishable from an incomplete response, unless a transport- level error indicates that it is not complete."
+            },
+            {
+              "section": "6",
+              "score": 0.6672679781913757,
+              "text": "Each major version of HTTP defines its own syntax for communicating messages. This section defines an abstract data type for HTTP messages based on a generalization of those message characteristics, common structure, and capacity for conveying semantics. This abstraction is used to define requirements on senders and recipients that are independent of the HTTP version, such that a message in one version can be relayed through other versions without changing its meaning. A \"message\" consists of the following: * control data to describe and route the message, * a headers lookup table of name/value pairs for extending that control data and conveying additional information about the sender, message, content, or context, * a potentially unbounded stream of content, and * a trailers lookup table of name/value pairs for communicating information obtained while sending the content. Framing and control data is sent first, followed by a header section containing fields for the headers table. When a message includes content, the content is sent after the header section, potentially followed by a trailer section that might contain fields for the trailers table. Messages are expected to be processed as a stream, wherein the purpose of that stream and its continued processing is revealed while being read. Hence, control data describes what the recipient needs to know immediately, header fields describe what needs to be known before receiving content, the content (when present) presumably contains what the recipient wants or needs to fulfill"
+            },
+            {
+              "section": "3.3",
+              "score": 0.6406792402267456,
+              "text": "HTTP is a client/server protocol that operates over a reliable transport- or session-layer \"connection\". An HTTP \"client\" is a program that establishes a connection to a server for the purpose of sending one or more HTTP requests. An HTTP \"server\" is a program that accepts connections in order to service HTTP requests by sending HTTP responses. The terms client and server refer only to the roles that these programs perform for a particular connection. The same program might act as a client on some connections and a server on others. HTTP is defined as a stateless protocol, meaning that each request message's semantics can be understood in isolation, and that the relationship between connections and messages on them has no impact on the interpretation of those messages. For example, a CONNECT request (Section 9.3.6) or a request with the Upgrade header field (Section 7.8) can occur at any time, not just in the first message on a connection. Many implementations depend on HTTP's stateless design in order to reuse proxied connections or dynamically load balance requests across multiple servers. As a result, a server MUST NOT assume that two requests on the same connection are from the same user agent unless the connection is secured and specific to that agent. Some non-standard HTTP extensions (e.g., [RFC4559]) have been known to violate this requirement, resulting in security and interoperability problems."
+            },
+            {
+              "section": "6.4",
+              "score": 0.6242612600326538,
+              "text": "HTTP messages often transfer a complete or partial representation as the message \"content\": a stream of octets sent after the header section, as delineated by the message framing. This abstract definition of content reflects the data after it has been extracted from the message framing. For example, an HTTP/1.1 message body (Section 6 of [HTTP/1.1]) might consist of a stream of data encoded with the chunked transfer coding -- a sequence of data chunks, one zero-length chunk, and a trailer section -- whereas the content of that same message includes only the data stream after the transfer coding has been decoded; it does not include the chunk lengths, chunked framing syntax, nor the trailer fields (Section 6.5). | *Note:* Some field names have a \"Content-\" prefix. This is an | informal convention; while some of these fields refer to the | content of the message, as defined above, others are scoped to | the selected representation (Section 3.2). See the individual | field's definition to disambiguate."
+            },
+            {
+              "section": "3.4",
+              "score": 0.6215507388114929,
+              "text": "HTTP is a stateless request/response protocol for exchanging \"messages\" across a connection. The terms \"sender\" and \"recipient\" refer to any implementation that sends or receives a given message, respectively. A client sends requests to a server in the form of a \"request\" message with a method (Section 9) and request target (Section 7.1). The request might also contain header fields (Section 6.3) for request modifiers, client information, and representation metadata, content (Section 6.4) intended for processing in accordance with the method, and trailer fields (Section 6.5) to communicate information collected while sending the content. A server responds to a client's request by sending one or more \"response\" messages, each including a status code (Section 15). The response might also contain header fields for server information, resource metadata, and representation metadata, content to be interpreted in accordance with the status code, and trailer fields to communicate information collected while sending the content."
+            }
+          ]
+        },
+        {
+          "id": "q06",
+          "question": "What kind of information can HTTP header fields provide or change?",
+          "gold_section": "6.3",
+          "gold_passage": "Each header field might modify or extend message semantics, describe the sender, define the content, or provide additional context.",
+          "hit_at_5": false,
+          "top5": [
+            {
+              "section": "10.1",
+              "score": 0.7205008864402771,
+              "text": "The request header fields below provide additional information about the request context, including information about the user, user agent, and resource behind the request."
+            },
+            {
+              "section": "5.1",
+              "score": 0.6933552026748657,
+              "text": "A field name labels the corresponding field value as having the semantics defined by that name. For example, the Date header field is defined in Section 6.6.1 as containing the origination timestamp for the message in which it appears. field-name = token Field names are case-insensitive and ought to be registered within the \"Hypertext Transfer Protocol (HTTP) Field Name Registry\"; see Section 16.3.1. The interpretation of a field does not change between minor versions of the same major HTTP version, though the default behavior of a recipient in the absence of such a field can change. Unless specified otherwise, fields are defined for all versions of HTTP. In particular, the Host and Connection fields ought to be recognized by all HTTP implementations whether or not they advertise conformance with HTTP/1.1. New fields can be introduced without changing the protocol version if their defined semantics allow them to be safely ignored by recipients that do not recognize them; see Section 16.3. A proxy MUST forward unrecognized header fields unless the field name is listed in the Connection header field (Section 7.6.1) or the proxy is specifically configured to block, or otherwise transform, such fields. Other recipients SHOULD ignore unrecognized header and trailer fields. Adhering to these requirements allows HTTP's functionality to be extended without updating or removing deployed intermediaries."
+            },
+            {
+              "section": "3.4",
+              "score": 0.6670016050338745,
+              "text": "HTTP is a stateless request/response protocol for exchanging \"messages\" across a connection. The terms \"sender\" and \"recipient\" refer to any implementation that sends or receives a given message, respectively. A client sends requests to a server in the form of a \"request\" message with a method (Section 9) and request target (Section 7.1). The request might also contain header fields (Section 6.3) for request modifiers, client information, and representation metadata, content (Section 6.4) intended for processing in accordance with the method, and trailer fields (Section 6.5) to communicate information collected while sending the content. A server responds to a client's request by sending one or more \"response\" messages, each including a status code (Section 15). The response might also contain header fields for server information, resource metadata, and representation metadata, content to be interpreted in accordance with the status code, and trailer fields to communicate information collected while sending the content."
+            },
+            {
+              "section": "16.3",
+              "score": 0.6651477217674255,
+              "text": "HTTP's most widely used extensibility point is the definition of new header and trailer fields. New fields can be defined such that, when they are understood by a recipient, they override or enhance the interpretation of previously defined fields, define preconditions on request evaluation, or refine the meaning of responses. However, defining a field doesn't guarantee its deployment or recognition by recipients. Most fields are designed with the expectation that a recipient can safely ignore (but forward downstream) any field not recognized. In other cases, the sender's ability to understand a given field might be indicated by its prior communication, perhaps in the protocol version or fields that it sent in prior messages, or its use of a specific media type. Likewise, direct inspection of support might be possible through an OPTIONS request or by interacting with a defined well-known URI [RFC8615] if such inspection is defined along with the field being introduced."
+            },
+            {
+              "section": "16.3.2",
+              "score": 0.6586028337478638,
+              "text": "need to carefully consider issues such as content negotiation, the time period of applicability, and (in some cases) multi-tenant server deployments. * Under what conditions intermediaries are allowed to insert, delete, or modify the field's value. * If the field is allowable in trailers; by default, it will not be (see Section 6.5.1). * Whether it is appropriate or even required to list the field name in the Connection header field (i.e., if the field is to be hop- by-hop; see Section 7.6.1). * Whether the field introduces any additional security considerations, such as disclosure of privacy-related data. Request header fields have additional considerations that need to be documented if the default behavior is not appropriate: * If it is appropriate to list the field name in a Vary response header field (e.g., when the request header field is used by an origin server's content selection algorithm; see Section 12.5.5). * If the field is intended to be stored when received in a PUT request (see Section 9.3.4). * If the field ought to be removed when automatically redirecting a request due to security concerns (see Section 15.4)."
+            }
+          ]
+        },
+        {
+          "id": "q07",
+          "question": "How does a client turn a URI reference into the target URI for a request?",
+          "gold_section": "7.1",
+          "gold_passage": "A URI reference is resolved to its absolute form in order to obtain the \"target URI\".",
+          "hit_at_5": true,
+          "top5": [
+            {
+              "section": "7.3",
+              "score": 0.7168705463409424,
+              "text": "Once the target URI and its origin are determined, a client decides whether a network request is necessary to accomplish the desired semantics and, if so, where that request is to be directed."
+            },
+            {
+              "section": "7.1",
+              "score": 0.6863938570022583,
+              "text": "Although HTTP is used in a wide variety of applications, most clients rely on the same resource identification mechanism and configuration techniques as general-purpose Web browsers. Even when communication options are hard-coded in a client's configuration, we can think of their combined effect as a URI reference (Section 4.1). A URI reference is resolved to its absolute form in order to obtain the \"target URI\". The target URI excludes the reference's fragment component, if any, since fragment identifiers are reserved for client-side processing ([URI], Section 3.5). To perform an action on a \"target resource\", the client sends a request message containing enough components of its parsed target URI to enable recipients to identify that same resource. For historical reasons, the parsed target URI components, collectively referred to as the \"request target\", are sent within the message control data and the Host header field (Section 7.2). There are two unusual cases for which the request target components are in a method-specific form: * For CONNECT (Section 9.3.6), the request target is the host name and port number of the tunnel destination, separated by a colon. * For OPTIONS (Section 9.3.7), the request target can be a single asterisk (\"*\"). See the respective method definitions for details. These forms MUST NOT be used with other methods. Upon receipt of a client's request, a server reconstructs the target URI from the received components in accordance with their local configuration and incoming connection context."
+            },
+            {
+              "section": "7.1",
+              "score": 0.6421635150909424,
+              "text": "form: * For CONNECT (Section 9.3.6), the request target is the host name and port number of the tunnel destination, separated by a colon. * For OPTIONS (Section 9.3.7), the request target can be a single asterisk (\"*\"). See the respective method definitions for details. These forms MUST NOT be used with other methods. Upon receipt of a client's request, a server reconstructs the target URI from the received components in accordance with their local configuration and incoming connection context. This reconstruction is specific to each major protocol version. For example, Section 3.3 of [HTTP/1.1] defines how a server determines the target URI of an HTTP/1.1 request. | *Note:* Previous specifications defined the recomposed target | URI as a distinct concept, the \"effective request URI\"."
+            },
+            {
+              "section": "4.1",
+              "score": 0.6335769891738892,
+              "text": "1*( \"/\" segment ) partial-URI = relative-part [ \"?\" query ] Each protocol element in HTTP that allows a URI reference will indicate in its ABNF production whether the element allows any form of reference (URI-reference), only a URI in absolute form (absolute- URI), only the path and optional query components (partial-URI), or some combination of the above. Unless otherwise indicated, URI references are parsed relative to the target URI (Section 7.1). It is RECOMMENDED that all senders and recipients support, at a minimum, URIs with lengths of 8000 octets in protocol elements. Note that this implies some structures and on-wire representations (for example, the request line in HTTP/1.1) will necessarily be larger in some cases."
+            },
+            {
+              "section": "17.9",
+              "score": 0.5931244492530823,
+              "text": "otherwise be a safe request. Alternative workarounds include transforming the user-provided data prior to constructing the URI or filtering the data to only include common values that are not sensitive. Likewise, redirecting the result of a query to a different (server-generated) URI can remove potentially sensitive data from later links and provide a cacheable response for later reuse. Since the Referer header field tells a target site about the context that resulted in a request, it has the potential to reveal information about the user's immediate browsing history and any personal information that might be found in the referring resource's URI. Limitations on the Referer header field are described in Section 10.1.3 to address some of its security considerations."
+            }
+          ]
+        },
+        {
+          "id": "q08",
+          "question": "What does the Content-Type response field tell a recipient?",
+          "gold_section": "8.3",
+          "gold_passage": "The \"Content-Type\" header field indicates the media type of the associated representation: either the representation enclosed in the message content or the selected representation, as determined by the message semantics.",
+          "hit_at_5": true,
+          "top5": [
+            {
+              "section": "8.3",
+              "score": 0.6028667688369751,
+              "text": "The \"Content-Type\" header field indicates the media type of the associated representation: either the representation enclosed in the message content or the selected representation, as determined by the message semantics. The indicated media type defines both the data format and how that data is intended to be processed by a recipient, within the scope of the received message semantics, after any content codings indicated by Content-Encoding are decoded. Content-Type = media-type Media types are defined in Section 8.3.1. An example of the field is Content-Type: text/html; charset=ISO-8859-4 A sender that generates a message containing content SHOULD generate a Content-Type header field in that message unless the intended media type of the enclosed representation is unknown to the sender. If a Content-Type header field is not present, the recipient MAY either assume a media type of \"application/octet-stream\" ([RFC2046], Section 4.5.1) or examine the data to determine its type. In practice, resource owners do not always properly configure their origin server to provide the correct Content-Type for a given representation. Some user agents examine the content and, in certain cases, override the received type (for example, see [Sniffing]). This \"MIME sniffing\" risks drawing incorrect conclusions about the data, which might expose the user to additional security risks (e.g., \"privilege escalation\"). Furthermore, distinct media types often share a common data format, differing only in how the data is intended to be processed, which is impossible to distinguish by inspecting the data alone. When"
+            },
+            {
+              "section": "6.6",
+              "score": 0.6010105013847351,
+              "text": "Fields that describe the message itself, such as when and how the message has been generated, can appear in both requests and responses."
+            },
+            {
+              "section": "12.3",
+              "score": 0.5971165895462036,
+              "text": "When content negotiation preferences are sent in a server's response, the listed preferences are called \"request content negotiation\" because they intend to influence selection of an appropriate content for subsequent requests to that resource. For example, the Accept (Section 12.5.1) and Accept-Encoding (Section 12.5.3) header fields can be sent in a response to indicate preferred media types and content codings for subsequent requests to that resource. Similarly, Section 3.1 of [RFC5789] defines the \"Accept-Patch\" response header field, which allows discovery of which content types are accepted in PATCH requests."
+            },
+            {
+              "section": "10.2",
+              "score": 0.5689129829406738,
+              "text": "The response header fields below provide additional information about the response, beyond what is implied by the status code, including information about the server, about the target resource, or about related resources."
+            },
+            {
+              "section": "3.4",
+              "score": 0.5581886768341064,
+              "text": "HTTP is a stateless request/response protocol for exchanging \"messages\" across a connection. The terms \"sender\" and \"recipient\" refer to any implementation that sends or receives a given message, respectively. A client sends requests to a server in the form of a \"request\" message with a method (Section 9) and request target (Section 7.1). The request might also contain header fields (Section 6.3) for request modifiers, client information, and representation metadata, content (Section 6.4) intended for processing in accordance with the method, and trailer fields (Section 6.5) to communicate information collected while sending the content. A server responds to a client's request by sending one or more \"response\" messages, each including a status code (Section 15). The response might also contain header fields for server information, resource metadata, and representation metadata, content to be interpreted in accordance with the status code, and trailer fields to communicate information collected while sending the content."
+            }
+          ]
+        },
+        {
+          "id": "q09",
+          "question": "When does the HTTP specification consider a method safe?",
+          "gold_section": "9.2.1",
+          "gold_passage": "Request methods are considered \"safe\" if their defined semantics are essentially read-only; i.e., the client does not request, and does not expect, any state change on the origin server as a result of applying a safe method to a target resource.",
+          "hit_at_5": true,
+          "top5": [
+            {
+              "section": "9.2.1",
+              "score": 0.6802499890327454,
+              "text": "Request methods are considered \"safe\" if their defined semantics are essentially read-only; i.e., the client does not request, and does not expect, any state change on the origin server as a result of applying a safe method to a target resource. Likewise, reasonable use of a safe method is not expected to cause any harm, loss of property, or unusual burden on the origin server. This definition of safe methods does not prevent an implementation from including behavior that is potentially harmful, that is not entirely read-only, or that causes side effects while invoking a safe method. What is important, however, is that the client did not request that additional behavior and cannot be held accountable for it. For example, most servers append request information to access log files at the completion of every response, regardless of the method, and that is considered safe even though the log storage might become full and cause the server to fail. Likewise, a safe request initiated by selecting an advertisement on the Web will often have the side effect of charging an advertising account. Of the request methods defined by this specification, the GET, HEAD, OPTIONS, and TRACE methods are defined to be safe. The purpose of distinguishing between safe and unsafe methods is to allow automated retrieval processes (spiders) and cache performance optimization (pre-fetching) to work without fear of causing harm. In addition, it allows a user agent to apply appropriate constraints"
+            },
+            {
+              "section": "3.1",
+              "score": 0.6534318923950195,
+              "text": "The target of an HTTP request is called a \"resource\". HTTP does not limit the nature of a resource; it merely defines an interface that might be used to interact with resources. Most resources are identified by a Uniform Resource Identifier (URI), as described in Section 4. One design goal of HTTP is to separate resource identification from request semantics, which is made possible by vesting the request semantics in the request method (Section 9) and a few request- modifying header fields. A resource cannot treat a request in a manner inconsistent with the semantics of the method of the request. For example, though the URI of a resource might imply semantics that are not safe, a client can expect the resource to avoid actions that are unsafe when processing a request with a safe method (see Section 9.2.1). HTTP relies upon the Uniform Resource Identifier (URI) standard [URI] to indicate the target resource (Section 7.1) and relationships between resources."
+            },
+            {
+              "section": "16.1.2",
+              "score": 0.6124403476715088,
+              "text": "to be sent in absolute form or the target URI will be reconstructed from the request context in the same way it is for other methods. A new method definition needs to indicate whether it is safe (Section 9.2.1), idempotent (Section 9.2.2), cacheable (Section 9.2.3), what semantics are to be associated with the request content (if any), and what refinements the method makes to header field or status code semantics. If the new method is cacheable, its definition ought to describe how, and under what conditions, a cache can store a response and use it to satisfy a subsequent request. The new method ought to describe whether it can be made conditional (Section 13.1) and, if so, how a server responds when the condition is false. Likewise, if the new method might have some use for partial response semantics (Section 14.2), it ought to document this, too. | *Note:* Avoid defining a method name that starts with \"M-\", | since that prefix might be misinterpreted as having the | semantics assigned to it by [RFC2774]."
+            },
+            {
+              "section": "9.2.1",
+              "score": 0.6121640801429749,
+              "text": "safe request initiated by selecting an advertisement on the Web will often have the side effect of charging an advertising account. Of the request methods defined by this specification, the GET, HEAD, OPTIONS, and TRACE methods are defined to be safe. The purpose of distinguishing between safe and unsafe methods is to allow automated retrieval processes (spiders) and cache performance optimization (pre-fetching) to work without fear of causing harm. In addition, it allows a user agent to apply appropriate constraints on the automated use of unsafe methods when processing potentially untrusted content. A user agent SHOULD distinguish between safe and unsafe methods when presenting potential actions to a user, such that the user can be made aware of an unsafe action before it is requested. When a resource is constructed such that parameters within the target URI have the effect of selecting an action, it is the resource owner's responsibility to ensure that the action is consistent with the request method semantics. For example, it is common for Web- based content editing software to use actions within query parameters, such as \"page?do=delete\". If the purpose of such a resource is to perform an unsafe action, then the resource owner MUST disable or disallow that action when it is accessed using a safe request method. Failure to do so will result in unfortunate side effects when automated processes perform a GET on every URI reference for the sake of link maintenance,"
+            },
+            {
+              "section": "9.2.1",
+              "score": 0.5774383544921875,
+              "text": "method semantics. For example, it is common for Web- based content editing software to use actions within query parameters, such as \"page?do=delete\". If the purpose of such a resource is to perform an unsafe action, then the resource owner MUST disable or disallow that action when it is accessed using a safe request method. Failure to do so will result in unfortunate side effects when automated processes perform a GET on every URI reference for the sake of link maintenance, pre-fetching, building a search index, etc."
+            }
+          ]
+        },
+        {
+          "id": "q10",
+          "question": "What does idempotent mean for repeating an identical HTTP request?",
+          "gold_section": "9.2.2",
+          "gold_passage": "A request method is considered \"idempotent\" if the intended effect on the server of multiple identical requests with that method is the same as the effect for a single such request.",
+          "hit_at_5": true,
+          "top5": [
+            {
+              "section": "9.2.2",
+              "score": 0.6915191411972046,
+              "text": "A request method is considered \"idempotent\" if the intended effect on the server of multiple identical requests with that method is the same as the effect for a single such request. Of the request methods defined by this specification, PUT, DELETE, and safe request methods are idempotent. Like the definition of safe, the idempotent property only applies to what has been requested by the user; a server is free to log each request separately, retain a revision control history, or implement other non-idempotent side effects for each idempotent request. Idempotent methods are distinguished because the request can be repeated automatically if a communication failure occurs before the client is able to read the server's response. For example, if a client sends a PUT request and the underlying connection is closed before any response is received, then the client can establish a new connection and retry the idempotent request. It knows that repeating the request will have the same intended effect, even if the original request succeeded, though the response might differ. A client SHOULD NOT automatically retry a request with a non- idempotent method unless it has some means to know that the request semantics are actually idempotent, regardless of the method, or some means to detect that the original request was never applied. For example, a user agent can repeat a POST request automatically if it knows (through design or configuration) that the request is safe for that resource."
+            },
+            {
+              "section": "15.5.20",
+              "score": 0.5403169989585876,
+              "text": "The 421 (Misdirected Request) status code indicates that the request was directed at a server that is unable or unwilling to produce an authoritative response for the target URI. An origin server (or gateway acting on behalf of the origin server) sends 421 to reject a target URI that does not match an origin for which the server has been configured (Section 4.3.1) or does not match the connection context over which the request was received (Section 7.4). A client that receives a 421 (Misdirected Request) response MAY retry the request, whether or not the request method is idempotent, over a different connection, such as a fresh connection specific to the target resource's origin, or via an alternative service [ALTSVC]. A proxy MUST NOT generate a 421 response."
+            },
+            {
+              "section": "9.2.2",
+              "score": 0.5379826426506042,
+              "text": "even if the original request succeeded, though the response might differ. A client SHOULD NOT automatically retry a request with a non- idempotent method unless it has some means to know that the request semantics are actually idempotent, regardless of the method, or some means to detect that the original request was never applied. For example, a user agent can repeat a POST request automatically if it knows (through design or configuration) that the request is safe for that resource. Likewise, a user agent designed specifically to operate on a version control repository might be able to recover from partial failure conditions by checking the target resource revision(s) after a failed connection, reverting or fixing any changes that were partially applied, and then automatically retrying the requests that failed. Some clients take a riskier approach and attempt to guess when an automatic retry is possible. For example, a client might automatically retry a POST request if the underlying transport connection closed before any part of a response is received, particularly if an idle persistent connection was used. A proxy MUST NOT automatically retry non-idempotent requests. A client SHOULD NOT automatically retry a failed automatic retry."
+            },
+            {
+              "section": "7",
+              "score": 0.5357301831245422,
+              "text": "specific identifier might be supplied within the content itself. HTTP request message routing is determined by each client based on the target resource, the client's proxy configuration, and establishment or reuse of an inbound connection. The corresponding response routing follows the same connection chain back to the client. The IANA will keep a record of all such changes, and make them available upon request."
+            },
+            {
+              "section": "12",
+              "score": 0.5089625716209412,
+              "text": "parameters, \"active content\", where the representation contains a script that makes additional (more specific) requests based on the user agent characteristics, and \"Transparent Content Negotiation\" ([RFC2295]), where content selection is performed by an intermediary. These patterns are not mutually exclusive, and each has trade-offs in applicability and practicality. Note that, in all cases, HTTP is not aware of the resource semantics. The consistency with which an origin server responds to requests, over time and over the varying dimensions of content negotiation, and thus the \"sameness\" of a resource's observed representations over time, is determined entirely by whatever entity or algorithm selects or generates those responses."
+            }
+          ]
+        },
+        {
+          "id": "q11",
+          "question": "What does the GET method ask the server to do?",
+          "gold_section": "9.3.1",
+          "gold_passage": "The GET method requests transfer of a current selected representation for the target resource.",
+          "hit_at_5": true,
+          "top5": [
+            {
+              "section": "9.3.2",
+              "score": 0.5525592565536499,
+              "text": "The HEAD method is identical to GET except that the server MUST NOT send content in the response. HEAD is used to obtain metadata about the selected representation without transferring its representation data, often for the sake of testing hypertext links or finding recent modifications. The server SHOULD send the same header fields in response to a HEAD request as it would have sent if the request method had been GET. However, a server MAY omit header fields for which a value is determined only while generating the content. For example, some servers buffer a dynamic response to GET until a minimum amount of data is generated so that they can more efficiently delimit small responses or make late decisions with regard to content selection. Such a response to GET might contain Content-Length and Vary fields, for example, that are not generated within a HEAD response. These minor inconsistencies are considered preferable to generating and discarding the content for a HEAD request, since HEAD is usually requested for the sake of efficiency. Although request message framing is independent of the method used, content received in a HEAD request has no generally defined semantics, cannot alter the meaning or target of the request, and might lead some implementations to reject the request and close the connection because of its potential as a request smuggling attack (Section 11.2 of [HTTP/1.1]). A client SHOULD NOT generate content in a HEAD request unless it"
+            },
+            {
+              "section": "7.3.1",
+              "score": 0.5427982807159424,
+              "text": "If the client has a cache [CACHING] and the request can be satisfied by it, then the request is usually directed there first."
+            },
+            {
+              "section": "9.3.1",
+              "score": 0.49233847856521606,
+              "text": "The GET method requests transfer of a current selected representation for the target resource. A successful response reflects the quality of \"sameness\" identified by the target URI (Section 1.2.2 of [URI]). Hence, retrieving identifiable information via HTTP is usually performed by making a GET request on an identifier associated with the potential for providing that information in a 200 (OK) response. GET is the primary mechanism of information retrieval and the focus of almost all performance optimizations. Applications that produce a URI for each important resource can benefit from those optimizations while enabling their reuse by other applications, creating a network effect that promotes further expansion of the Web. It is tempting to think of resource identifiers as remote file system pathnames and of representations as being a copy of the contents of such files. In fact, that is how many resources are implemented (see Section 17.3 for related security considerations). However, there are no such limitations in practice. The HTTP interface for a resource is just as likely to be implemented as a tree of content objects, a programmatic view on various database records, or a gateway to other information systems. Even when the URI mapping mechanism is tied to a file system, an origin server might be configured to execute the files with the request as input and send the output as the representation rather than transfer the files directly. Regardless, only the origin server needs to know"
+            },
+            {
+              "section": "9.3.1",
+              "score": 0.49096915125846863,
+              "text": "alter the meaning or target of the request, and might lead some implementations to reject the request and close the connection because of its potential as a request smuggling attack (Section 11.2 of [HTTP/1.1]). A client SHOULD NOT generate content in a GET request unless it is made directly to an origin server that has previously indicated, in or out of band, that such a request has a purpose and will be adequately supported. An origin server SHOULD NOT rely on private agreements to receive content, since participants in HTTP communication are often unaware of intermediaries along the request chain. The response to a GET request is cacheable; a cache MAY use it to satisfy subsequent GET and HEAD requests unless otherwise indicated by the Cache-Control header field (Section 5.2 of [CACHING]). When information retrieval is performed with a mechanism that constructs a target URI from user-provided information, such as the query fields of a form using GET, potentially sensitive data might be provided that would not be appropriate for disclosure within a URI (see Section 17.9). In some cases, the data can be filtered or transformed such that it would not reveal such information. In others, particularly when there is no benefit from caching a response, using the POST method (Section 9.3.3) instead of GET can transmit such information in the request content rather than within the target URI."
+            },
+            {
+              "section": "8.7",
+              "score": 0.4864456057548523,
+              "text": "2xx (Successful) response message and its value refers (after conversion to absolute form) to a URI that is the same as the target URI, then the recipient MAY consider the content to be a current representation of that resource at the time indicated by the message origination date. For a GET (Section 9.3.1) or HEAD (Section 9.3.2) request, this is the same as the default semantics when no Content-Location is provided by the server. For a state-changing request like PUT (Section 9.3.4) or POST (Section 9.3.3), it implies that the server's response contains the new representation of that resource, thereby distinguishing it from representations that might only report about the action (e.g., \"It worked!\"). This allows authoring applications to update their local copies without the need for a subsequent GET request. If Content-Location is included in a 2xx (Successful) response message and its field value refers to a URI that differs from the target URI, then the origin server claims that the URI is an identifier for a different resource corresponding to the enclosed representation. Such a claim can only be trusted if both identifiers share the same resource owner, which cannot be programmatically determined via HTTP. * For a response to a GET or HEAD request, this is an indication that the target URI refers to a resource that is subject to content negotiation and the Content-Location field value is a more specific identifier for the selected representation. *"
+            }
+          ]
+        },
+        {
+          "id": "q12",
+          "question": "What does a Location response field identify?",
+          "gold_section": "10.2.2",
+          "gold_passage": "The \"Location\" header field is used in some responses to refer to a specific resource in relation to the response.",
+          "hit_at_5": true,
+          "top5": [
+            {
+              "section": "15.4.4",
+              "score": 0.6357424259185791,
+              "text": "not have a representation of the target resource that can be transferred by the server over HTTP. However, the Location field value refers to a resource that is descriptive of the target resource, such that making a retrieval request on that other resource might result in a representation that is useful to recipients without implying that it represents the original target resource. Note that answers to the questions of what can be represented, what representations are adequate, and what might be a useful description are outside the scope of HTTP. Except for responses to a HEAD request, the representation of a 303 response ought to contain a short hypertext note with a hyperlink to the same URI reference provided in the Location header field."
+            },
+            {
+              "section": "10.2",
+              "score": 0.575724720954895,
+              "text": "The response header fields below provide additional information about the response, beyond what is implied by the status code, including information about the server, about the target resource, or about related resources."
+            },
+            {
+              "section": "6.6",
+              "score": 0.5572559237480164,
+              "text": "Fields that describe the message itself, such as when and how the message has been generated, can appear in both requests and responses."
+            },
+            {
+              "section": "8.7",
+              "score": 0.5474778413772583,
+              "text": "that the URI is an identifier for a different resource corresponding to the enclosed representation. Such a claim can only be trusted if both identifiers share the same resource owner, which cannot be programmatically determined via HTTP. * For a response to a GET or HEAD request, this is an indication that the target URI refers to a resource that is subject to content negotiation and the Content-Location field value is a more specific identifier for the selected representation. * For a 201 (Created) response to a state-changing method, a Content-Location field value that is identical to the Location field value indicates that this content is a current representation of the newly created resource. * Otherwise, such a Content-Location indicates that this content is a representation reporting on the requested action's status and that the same report is available (for future access with GET) at the given URI. For example, a purchase transaction made via a POST request might include a receipt document as the content of the 200 (OK) response; the Content-Location field value provides an identifier for retrieving a copy of that same receipt in the future. A user agent that sends Content-Location in a request message is stating that its value refers to where the user agent originally obtained the content of the enclosed representation (prior to any modifications made by that user agent). In other words, the user agent is providing a back link to the"
+            },
+            {
+              "section": "10.2.2",
+              "score": 0.5335164666175842,
+              "text": "The \"Location\" header field is used in some responses to refer to a specific resource in relation to the response. The type of relationship is defined by the combination of request method and status code semantics. Location = URI-reference The field value consists of a single URI-reference. When it has the form of a relative reference ([URI], Section 4.2), the final value is computed by resolving it against the target URI ([URI], Section 5). For 201 (Created) responses, the Location value refers to the primary resource created by the request. For 3xx (Redirection) responses, the Location value refers to the preferred target resource for automatically redirecting the request. If the Location value provided in a 3xx (Redirection) response does not have a fragment component, a user agent MUST process the redirection as if the value inherits the fragment component of the URI reference used to generate the target URI (i.e., the redirection inherits the original reference's fragment, if any). For example, a GET request generated for the URI reference \"http://www.example.org/~tim\" might result in a 303 (See Other) response containing the header field: Location: /People.html#tim which suggests that the user agent redirect to \"http://www.example.org/People.html#tim\" Likewise, a GET request generated for the URI reference \"http://www.example.org/index.html#larry\" might result in a 301 (Moved Permanently) response containing the header field: Location: http://www.example.net/index.html which suggests that the user agent redirect to \"http://www.example.net/index.html#larry\", preserving the original fragment identifier. There are circumstances in which a fragment identifier in"
+            }
+          ]
+        },
+        {
+          "id": "q13",
+          "question": "How should a client interpret Retry-After on a 503 response?",
+          "gold_section": "10.2.3",
+          "gold_passage": "When sent with a 503 (Service Unavailable) response, Retry-After indicates how long the service is expected to be unavailable to the client.",
+          "hit_at_5": true,
+          "top5": [
+            {
+              "section": "10.2.3",
+              "score": 0.7448756694793701,
+              "text": "Servers send the \"Retry-After\" header field to indicate how long the user agent ought to wait before making a follow-up request. When sent with a 503 (Service Unavailable) response, Retry-After indicates how long the service is expected to be unavailable to the client. When sent with any 3xx (Redirection) response, Retry-After indicates the minimum time that the user agent is asked to wait before issuing the redirected request. The Retry-After field value can be either an HTTP-date or a number of seconds to delay after receiving the response. Retry-After = HTTP-date / delay-seconds A delay-seconds value is a non-negative decimal integer, representing time in seconds. delay-seconds = 1*DIGIT Two examples of its use are Retry-After: Fri, 31 Dec 1999 23:59:59 GMT Retry-After: 120 In the latter example, the delay is 2 minutes."
+            },
+            {
+              "section": "15.6.4",
+              "score": 0.6424477100372314,
+              "text": "The 503 (Service Unavailable) status code indicates that the server is currently unable to handle the request due to a temporary overload or scheduled maintenance, which will likely be alleviated after some delay. The server MAY send a Retry-After header field (Section 10.2.3) to suggest an appropriate amount of time for the client to wait before retrying the request. | *Note:* The existence of the 503 status code does not imply | that a server has to use it when becoming overloaded. Some | servers might simply refuse the connection."
+            },
+            {
+              "section": "9.2.2",
+              "score": 0.6415656805038452,
+              "text": "even if the original request succeeded, though the response might differ. A client SHOULD NOT automatically retry a request with a non- idempotent method unless it has some means to know that the request semantics are actually idempotent, regardless of the method, or some means to detect that the original request was never applied. For example, a user agent can repeat a POST request automatically if it knows (through design or configuration) that the request is safe for that resource. Likewise, a user agent designed specifically to operate on a version control repository might be able to recover from partial failure conditions by checking the target resource revision(s) after a failed connection, reverting or fixing any changes that were partially applied, and then automatically retrying the requests that failed. Some clients take a riskier approach and attempt to guess when an automatic retry is possible. For example, a client might automatically retry a POST request if the underlying transport connection closed before any part of a response is received, particularly if an idle persistent connection was used. A proxy MUST NOT automatically retry non-idempotent requests. A client SHOULD NOT automatically retry a failed automatic retry."
+            },
+            {
+              "section": "15.3.3",
+              "score": 0.5948156118392944,
+              "text": "The 202 (Accepted) status code indicates that the request has been accepted for processing, but the processing has not been completed. The request might or might not eventually be acted upon, as it might be disallowed when processing actually takes place. There is no facility in HTTP for re-sending a status code from an asynchronous operation. The 202 response is intentionally noncommittal. Its purpose is to allow a server to accept a request for some other process (perhaps a batch-oriented process that is only run once per day) without requiring that the user agent's connection to the server persist until the process is completed. The representation sent with this response ought to describe the request's current status and point to (or embed) a status monitor that can provide the user with an estimate of when the request will be fulfilled."
+            },
+            {
+              "section": "10.1.1",
+              "score": 0.579777717590332,
+              "text": "content even if it has not yet received a response. Furthermore, since 100 (Continue) responses cannot be sent through an HTTP/1.0 intermediary, such a client SHOULD NOT wait for an indefinite period before sending the content. * A client that receives a 417 (Expectation Failed) status code in response to a request containing a 100-continue expectation SHOULD repeat that request without a 100-continue expectation, since the 417 response merely indicates that the response chain does not support expectations (e.g., it passes through an HTTP/1.0 server). Requirements for servers: * A server that receives a 100-continue expectation in an HTTP/1.0 request MUST ignore that expectation. * A server MAY omit sending a 100 (Continue) response if it has already received some or all of the content for the corresponding request, or if the framing indicates that there is no content. * A server that sends a 100 (Continue) response MUST ultimately send a final status code, once it receives and processes the request content, unless the connection is closed prematurely. * A server that responds with a final status code before reading the entire request content SHOULD indicate whether it intends to close the connection (e.g., see Section 9.6 of [HTTP/1.1]) or continue reading the request content. Upon receiving an HTTP/1.1 (or later) request that has a method, target URI, and complete header section that contains a 100-continue expectation and an indication that request content will follow, an origin server MUST"
+            }
+          ]
+        },
+        {
+          "id": "q14",
+          "question": "What forms can the extra information following an HTTP authentication scheme take?",
+          "gold_section": "11.2",
+          "gold_passage": "The authentication scheme is followed by additional information necessary for achieving authentication via that scheme as either a comma-separated list of parameters or a single sequence of characters capable of holding base64-encoded information.",
+          "hit_at_5": false,
+          "top5": [
+            {
+              "section": "11.6.3",
+              "score": 0.7427463531494141,
+              "text": "HTTP authentication schemes can use the \"Authentication-Info\" response field to communicate information after the client's authentication credentials have been accepted. This information can include a finalization message from the server (e.g., it can contain the server authentication). The field value is a list of parameters (name/value pairs), using the \"auth-param\" syntax defined in Section 11.3. This specification only describes the generic format; authentication schemes using Authentication-Info will define the individual parameters. The \"Digest\" Authentication Scheme, for instance, defines multiple parameters in Section 3.5 of [RFC7616]. Authentication-Info = #auth-param The Authentication-Info field can be used in any HTTP response, independently of request method and status code. Its semantics are defined by the authentication scheme indicated by the Authorization header field (Section 11.6.2) of the corresponding request. A proxy forwarding a response is not allowed to modify the field value in any way. Authentication-Info can be sent as a trailer field (Section 6.5) when the authentication scheme explicitly allows this."
+            },
+            {
+              "section": "17.16.4",
+              "score": 0.7420508861541748,
+              "text": "Adding information to responses that are sent over an unencrypted channel can affect security and privacy. The presence of the Authentication-Info and Proxy-Authentication-Info header fields alone indicates that HTTP authentication is in use. Additional information could be exposed by the contents of the authentication-scheme specific parameters; this will have to be considered in the definitions of these schemes."
+            },
+            {
+              "section": "11.1",
+              "score": 0.7107678651809692,
+              "text": "HTTP provides a general framework for access control and authentication, via an extensible set of challenge-response authentication schemes, which can be used by a server to challenge a client request and by a client to provide authentication information. It uses a case-insensitive token to identify the authentication scheme: auth-scheme = token Aside from the general framework, this document does not specify any authentication schemes. New and existing authentication schemes are specified independently and ought to be registered within the \"Hypertext Transfer Protocol (HTTP) Authentication Scheme Registry\". For example, the \"basic\" and \"digest\" authentication schemes are defined by [RFC7617] and [RFC7616], respectively."
+            },
+            {
+              "section": "17.16",
+              "score": 0.6752132177352905,
+              "text": "Everything about the topic of HTTP authentication is a security consideration, so the list of considerations below is not exhaustive. Furthermore, it is limited to security considerations regarding the authentication framework, in general, rather than discussing all of the potential considerations for specific authentication schemes (which ought to be documented in the specifications that define those schemes). Various organizations maintain topical information and links to current research on Web application security (e.g., [OWASP]), including common pitfalls for implementing and using the authentication schemes found in practice."
+            },
+            {
+              "section": "17.16.1",
+              "score": 0.6559979915618896,
+              "text": "The HTTP authentication framework does not define a single mechanism for maintaining the confidentiality of credentials; instead, each authentication scheme defines how the credentials are encoded prior to transmission. While this provides flexibility for the development of future authentication schemes, it is inadequate for the protection of existing schemes that provide no confidentiality on their own, or that do not sufficiently protect against replay attacks. Furthermore, if the server expects credentials that are specific to each individual user, the exchange of those credentials will have the effect of identifying that user even if the content within credentials remains confidential. HTTP depends on the security properties of the underlying transport- or session-level connection to provide confidential transmission of fields. Services that depend on individual user authentication require a secured connection prior to exchanging credentials (Section 4.2.2)."
+            }
+          ]
+        },
+        {
+          "id": "q15",
+          "question": "What does the 4xx status-code class indicate, and what should a server generally send with it?",
+          "gold_section": "15.5",
+          "gold_passage": "The 4xx (Client Error) class of status code indicates that the client seems to have erred. Except when responding to a HEAD request, the server SHOULD send a representation containing an explanation of the error situation, and whether it is a temporary or permanent condition.",
+          "hit_at_5": true,
+          "top5": [
+            {
+              "section": "15.5",
+              "score": 0.7920539379119873,
+              "text": "The 4xx (Client Error) class of status code indicates that the client seems to have erred. Except when responding to a HEAD request, the server SHOULD send a representation containing an explanation of the error situation, and whether it is a temporary or permanent condition. These status codes are applicable to any request method. User agents SHOULD display any included representation to the user."
+            },
+            {
+              "section": "15.6",
+              "score": 0.7263361215591431,
+              "text": "The 5xx (Server Error) class of status code indicates that the server is aware that it has erred or is incapable of performing the requested method. Except when responding to a HEAD request, the server SHOULD send a representation containing an explanation of the error situation, and whether it is a temporary or permanent condition. A user agent SHOULD display any included representation to the user. These status codes are applicable to any request method."
+            },
+            {
+              "section": "15",
+              "score": 0.7090576887130737,
+              "text": "The status code of a response is a three-digit integer code that describes the result of the request and the semantics of the response, including whether the request was successful and what content is enclosed (if any). All valid status codes are within the range of 100 to 599, inclusive. The first digit of the status code defines the class of response. The last two digits do not have any categorization role. There are five values for the first digit: * 1xx (Informational): The request was received, continuing process * 2xx (Successful): The request was successfully received, understood, and accepted * 3xx (Redirection): Further action needs to be taken in order to complete the request * 4xx (Client Error): The request contains bad syntax or cannot be fulfilled * 5xx (Server Error): The server failed to fulfill an apparently valid request HTTP status codes are extensible. A client is not required to understand the meaning of all registered status codes, though such understanding is obviously desirable. However, a client MUST understand the class of any status code, as indicated by the first digit, and treat an unrecognized status code as being equivalent to the x00 status code of that class. For example, if a client receives an unrecognized status code of 471, it can see from the first digit that there was something wrong with its request and treat the response as if it had received a 400 (Bad Request)"
+            },
+            {
+              "section": "15.4",
+              "score": 0.6601841449737549,
+              "text": "The 3xx (Redirection) class of status code indicates that further action needs to be taken by the user agent in order to fulfill the request. There are several types of redirects:"
+            },
+            {
+              "section": "15",
+              "score": 0.6586242318153381,
+              "text": "though such understanding is obviously desirable. However, a client MUST understand the class of any status code, as indicated by the first digit, and treat an unrecognized status code as being equivalent to the x00 status code of that class. For example, if a client receives an unrecognized status code of 471, it can see from the first digit that there was something wrong with its request and treat the response as if it had received a 400 (Bad Request) status code. The response message will usually contain a representation that explains the status. Values outside the range 100..599 are invalid. Implementations often use three-digit integer values outside of that range (i.e., 600..999) for internal communication of non-HTTP status (e.g., library errors). A client that receives a response with an invalid status code SHOULD process the response as if it had a 5xx (Server Error) status code. A single request can have multiple associated responses: zero or more \"interim\" (non-final) responses with status codes in the \"informational\" (1xx) range, followed by exactly one \"final\" response with a status code in one of the other ranges."
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
