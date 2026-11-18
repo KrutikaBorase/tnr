@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 /make_report.py
+/report.pdf
 
 # Downloaded model weights, executables, and transient run products
 task1/output/
@@ -12,4 +13,4 @@ task3/*.zip
 task2/data/.cache/
 task2/data/rfc9110.txt
 
-# Keep measured, compact results and the final report in version control.
+# Keep measured, compact results in version control.

@@ -2,7 +2,7 @@
 
 This repository contains independent, reproducible implementations for the
 three assignment tasks. The scripts save raw predictions and measurements
-under `results/`; the included report summarizes those measured results.
+under `results/`. The report is provided separately from this repository.
 
 ## Environment used for the measured run
 
@@ -67,8 +67,8 @@ and source passages. Original Task 3 outputs and measurements are in
 
 - All benchmark scripts record their model identifiers, settings, and
   measurements. Model binaries, adapters, the downloaded RFC text, and
-  transient logs are ignored; source code, compact results, and the final
-  report are tracked. The RAG script fetches RFC 9110 directly from the RFC
+  transient logs are ignored; source code and compact results are tracked.
+  The RAG script fetches RFC 9110 directly from the RFC
   Editor when it is absent; the document includes its own copyright notice.
 - Training and generation are seeded, but GPU kernels and library versions
   can still cause small run-to-run variation.
