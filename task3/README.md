@@ -7,17 +7,23 @@ build enumerates an accelerator. On the machine used for these results,
 llama.cpp reported no available device, so the measured run used CPU and
 explicitly set zero GPU layers. It warms each model with one excluded prompt,
 then records outputs, completion-token wall throughput, server-process RSS,
-and whether an accelerator was available.
+model-file size and whether an accelerator was available.
 
 ```powershell
 .\task3\download_models.ps1
 .\.venv\Scripts\python.exe task3\benchmark.py
+# To preserve the original measurements while repeating the run:
+.\.venv\Scripts\python.exe task3\benchmark.py --output results\task3_recheck_metrics.json
 ```
 
 Models and executables are downloaded locally and excluded from git. The
 prompt/output pairs and measurements are saved in
 `results/task3_metrics.json`; qualitative observations are summarized in the
-final PDF report.
+final PDF report. The report uses the separate recheck run, which also records
+the sizes of the downloaded GGUF files. RSS is the sampled process working set,
+not the total model-file size: mapped pages and shared buffers can make the
+two figures differ. No separate attribution to those causes was measured, and
+the CPU-only measurements are not VRAM measurements.
 
 The KV cache stores prior attention keys and values so each next token does
 not require recomputing the full prefix. Its size increases with active

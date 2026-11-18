@@ -6,11 +6,23 @@ only `{"intent":"..."}`. It creates 240 deterministic training examples and
 80 separately templated held-out messages. It measures both the base and
 fine-tuned model on the identical test set and separately saves deliberately
 mixed-intent challenge cases (not included in the headline score).
+Both models use the same chat prompt, instruction, messages and greedy decoding.
+The held-out wording differs from training templates, but remains in the same
+small, synthetic task; it is not evidence of production generalization.
+
+The separate recheck in `results/task1_recheck/` compares base and tuned models
+on the 20 mixed-intent challenges after retraining. Some examples can reasonably
+have more than one label, so this score measures agreement with the selected
+single-label references, not definitive correctness. The original held-out
+run and its failure examples remain under `results/`.
 
 Run from the root with:
 
 ```powershell
 .\.venv\Scripts\python.exe task1\run.py
+
+# Preserve the original results when repeating the harder comparison:
+.\.venv\Scripts\python.exe task1\run.py --results-dir results\task1_recheck --output-dir task1\output\recheck
 ```
 
 The adapter is written to ignored `task1/output/adapter/`; comparable metrics

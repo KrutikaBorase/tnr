@@ -1,6 +1,7 @@
 .venv/
 __pycache__/
 *.py[cod]
+/make_report.py
 
 # Downloaded model weights, executables, and transient run products
 task1/output/

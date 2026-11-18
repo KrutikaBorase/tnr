@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import argparse
 import csv
 import json
 import random
@@ -339,10 +340,16 @@ def metrics(predictions: list[dict]) -> dict:
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--results-dir", type=Path, default=RESULTS)
+    parser.add_argument("--output-dir", type=Path, default=OUT)
+    args = parser.parse_args()
+    results_dir = args.results_dir
+    output_dir = args.output_dir
     torch.manual_seed(SEED)
     random.seed(SEED)
-    OUT.mkdir(parents=True, exist_ok=True)
-    RESULTS.mkdir(parents=True, exist_ok=True)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    results_dir.mkdir(parents=True, exist_ok=True)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     dtype = torch.float16 if device.type == "cuda" else torch.float32
 
@@ -366,6 +373,9 @@ def main() -> None:
 
     base_predictions = generate_predictions(model, tokenizer, test_examples, device, dtype)
     base_metrics = metrics(base_predictions)
+    base_challenges = generate_predictions(
+        model, tokenizer, CHALLENGE_PHRASES, device, dtype
+    )
     model.config.use_cache = False
     model.train()
     model = get_peft_model(
@@ -439,11 +449,14 @@ def main() -> None:
             "output": row["output"],
             "prediction": parse_intent(row["output"]),
             "correct": parse_intent(row["output"]) == row["expected"],
+            "base_output": base["output"],
+            "base_prediction": parse_intent(base["output"]),
+            "base_correct": parse_intent(base["output"]) == base["expected"],
         }
-        for row in challenge_predictions
+        for base, row in zip(base_challenges, challenge_predictions)
     ]
-    model.save_pretrained(OUT / "adapter")
-    tokenizer.save_pretrained(OUT / "adapter")
+    model.save_pretrained(output_dir / "adapter")
+    tokenizer.save_pretrained(output_dir / "adapter")
 
     merged = []
     for base, tuned in zip(base_predictions, tuned_predictions):
@@ -457,7 +470,7 @@ def main() -> None:
                 "tuned_prediction": parse_intent(tuned["output"]),
             }
         )
-    with (RESULTS / "task1_predictions.csv").open("w", newline="", encoding="utf-8") as file:
+    with (results_dir / "task1_predictions.csv").open("w", newline="", encoding="utf-8") as file:
         writer = csv.DictWriter(file, fieldnames=list(merged[0]))
         writer.writeheader()
         writer.writerows(merged)
@@ -486,11 +499,13 @@ def main() -> None:
         "peak_cuda_allocated_gib": peak_memory,
         "base": base_metrics,
         "lora_finetuned": tuned_metrics,
+        "challenge_base": metrics(base_challenges),
+        "challenge_lora_finetuned": metrics(challenge_predictions),
     }
-    (RESULTS / "task1_metrics.json").write_text(
+    (results_dir / "task1_metrics.json").write_text(
         json.dumps(details, indent=2) + "\n", encoding="utf-8"
     )
-    (RESULTS / "task1_challenges.json").write_text(
+    (results_dir / "task1_challenges.json").write_text(
         json.dumps(challenge_rows, indent=2) + "\n", encoding="utf-8"
     )
     print(json.dumps(details, indent=2))

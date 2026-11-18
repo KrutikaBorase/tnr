@@ -2,8 +2,7 @@
 
 This repository contains independent, reproducible implementations for the
 three assignment tasks. The scripts save raw predictions and measurements
-under `results/`; the report is generated from those files, not filled with
-assumed results.
+under `results/`; the included report summarizes those measured results.
 
 ## Environment used for the measured run
 
@@ -36,9 +35,9 @@ official PyTorch selector and keep the remaining dependencies in
 ## Run the tasks
 
 ```powershell
-# Task 1: downloads the base model, trains LoRA, and evaluates 80 held-out
-# messages against the same base checkpoint.
-.\.venv\Scripts\python.exe task1\run.py
+# Task 1: preserve the original 80-example results while repeating training
+# and comparing both models on the mixed-intent challenge set.
+.\.venv\Scripts\python.exe task1\run.py --results-dir results\task1_recheck --output-dir task1\output\recheck
 
 # Task 2: downloads/uses the RFC and embedding model, evaluates recall@5
 # for both chunk sizes, and writes the 15-question evidence table.
@@ -46,10 +45,7 @@ official PyTorch selector and keep the remaining dependencies in
 
 # Task 3: downloads the pinned llama.cpp build and both GGUF files.
 .\task3\download_models.ps1
-.\.venv\Scripts\python.exe task3\benchmark.py
-
-# Generate the four-page (maximum) report after all result files exist.
-.\.venv\Scripts\python.exe make_report.py
+.\.venv\Scripts\python.exe task3\benchmark.py --output results\task3_recheck_metrics.json
 
 # Validate all gold passages and chunk-boundary coverage.
 .\.venv\Scripts\python.exe -m unittest discover -s tests -v
@@ -63,8 +59,9 @@ For one-off RAG questions after building the index:
 
 The evaluator uses the same deterministic test questions and retrieval
 pipeline as the benchmark. `task2/questions.json` gives the complete questions
-and source passages. Task 3 records each of its ten prompt/output pairs in
-`results/task3_metrics.json`, alongside throughput and process memory.
+and source passages. Original Task 3 outputs and measurements are in
+`results/task3_metrics.json`; the report uses the repeat run in
+`results/task3_recheck_metrics.json`, which also records model-file sizes.
 
 ## Reproducibility and interpretation
 

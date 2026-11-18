@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import argparse
 import json
 import platform
 import socket
@@ -204,6 +205,7 @@ def benchmark_model(
     return {
         "quantization": label,
         "model_file": model_path.name,
+        "model_file_bytes": model_path.stat().st_size,
         "llama_cpp_version": "b12477",
         "gpu_layers": gpu_layers,
         "context_size": 4096,
@@ -218,12 +220,15 @@ def benchmark_model(
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--output", type=Path, default=RESULTS / "task3_metrics.json")
+    args = parser.parse_args()
     server_binary = find_binary("llama-server.exe")
     cli_binary = find_binary("llama-cli.exe")
     devices = available_devices(cli_binary)
     gpu_layers = 99 if devices else 0
     accelerator = ", ".join(devices) if devices else "CPU (llama.cpp reported no available devices)"
-    RESULTS.mkdir(parents=True, exist_ok=True)
+    args.output.parent.mkdir(parents=True, exist_ok=True)
     results = {}
     for label, model_path in MODELS.items():
         print(f"Benchmarking {label} ...", flush=True)
@@ -247,7 +252,7 @@ def main() -> None:
         ),
         "results": results,
     }
-    (RESULTS / "task3_metrics.json").write_text(
+    args.output.write_text(
         json.dumps(output, indent=2) + "\n", encoding="utf-8"
     )
     print(json.dumps({key: value["tokens_per_second"] for key, value in results.items()}, indent=2))

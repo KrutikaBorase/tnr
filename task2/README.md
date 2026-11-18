@@ -28,6 +28,13 @@ $server = (Get-ChildItem .\task3\bin -Recurse -Filter llama-server.exe |
   --answer-model .\task3\models\qwen2.5-1.5b-instruct-q4_k_m.gguf --llama-server $server
 ```
 
+The report also computes top-1 accuracy and MRR@5 from the saved top-five
+chunks. MRR@5 averages the reciprocal of the first matching chunk's rank,
+using zero when no gold passage appears in the top five. Both settings have
+13/15 recall@5; 120-word chunks have 9/15 top-1 and 0.694 MRR@5 versus
+8/15 and 0.641 for 240-word chunks. The small test does not establish a
+general chunk-size advantage.
+
 BM25 is complementary sparse lexical ranking: it favors exact and rare term
 matches, including names and identifiers, that dense embeddings may blur.
 A cross-encoder re-ranker scores the query together with each retrieved

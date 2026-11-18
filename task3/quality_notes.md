@@ -1,7 +1,7 @@
 Qualitative comparison of the same ten prompts; observations are not an aggregate score.
 
 p01 — Both explain the repeatable-effect idea. Q8's DELETE example is clearer; Q4's hypothetical POST example could mislead because POST is not generally idempotent.
-p02 — Both choose billing and provide the requested keys, but Markdown code fences mean neither output is literally only one JSON object.
+p02 — Q4 uses the requested billing intent; Q8 uses billing_error instead. Both wrap the object in Markdown code fences, so neither output is literally only one JSON object.
 p03 — Both give two relevant reasons. Q4 mentions reduced server load and hiding an internal address; Q8 mentions reduced load and access control.
 p04 — Both say to wait 120 seconds and retry. Q8 adds unnecessary status/log monitoring; both responses stop at the 128-token output limit.
 p05 — Both calculate one quarter of 24 as 6, but neither reaches the final answer after adding 3 before the 128-token limit.
